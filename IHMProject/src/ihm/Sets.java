@@ -18,31 +18,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class SetPredef extends JFrame {
+public class Sets extends JFrame {
+	
+	boolean fromAccueil;
 
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SetPredef frame = new SetPredef();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public SetPredef() {
+	public Sets(boolean fromAccueil) {
+		this.fromAccueil=fromAccueil;
 		setTitle("COLOR SWITCHER");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -185,12 +173,16 @@ public class SetPredef extends JFrame {
 	}
 	
 	private class ActionPrecedent implements MouseListener {
-		SetPredef a;
-		public ActionPrecedent(SetPredef a){
+		Sets a;
+		public ActionPrecedent(Sets a){
 			this.a=a;
 		}
 		public void mouseClicked(MouseEvent e) {
-			Accueil accueil=new Accueil();
+			if(a.fromAccueil){
+				Accueil accueil=new Accueil();
+			} else {
+				ChoisirCouleur choice= new ChoisirCouleur();
+			}
 			a.dispose();
 		}
 		public void mousePressed(MouseEvent e) { }

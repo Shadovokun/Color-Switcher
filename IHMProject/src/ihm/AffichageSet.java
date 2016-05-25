@@ -1,11 +1,13 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,28 +23,15 @@ import javax.swing.border.EmptyBorder;
 public class AffichageSet extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AffichageSet frame = new AffichageSet();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	Sets s;
 
 	/**
 	 * Create the frame.
 	 */
-	public AffichageSet() {
+	public AffichageSet(ArrayList<Color> set, Sets s) {
+		this.s=s;
 		setTitle("COLOR SWITCHER");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -179,8 +168,8 @@ public class AffichageSet extends JFrame {
 			this.a=a;
 		}
 		public void mouseClicked(MouseEvent e) {
-			Accueil accueil=new Accueil();
-			a.dispose();
+			a.s.pack();
+			s.dispose();
 		}
 		public void mousePressed(MouseEvent e) { }
 		public void mouseReleased(MouseEvent e) { }

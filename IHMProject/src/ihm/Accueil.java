@@ -42,7 +42,7 @@ public class Accueil extends JFrame {
 	 */
 	public Accueil() {
 		setTitle("COLOR SWITCHER");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);  
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -73,7 +73,7 @@ public class Accueil extends JFrame {
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {
-			SetPredef setPredef=new SetPredef();
+			Sets setPredef=new Sets(true);
 			a.dispose();
 		}
 	}
