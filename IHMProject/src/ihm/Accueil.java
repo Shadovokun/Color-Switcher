@@ -22,9 +22,6 @@ public class Accueil extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -37,9 +34,6 @@ public class Accueil extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Accueil() {
 		setTitle("COLOR SWITCHER");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
