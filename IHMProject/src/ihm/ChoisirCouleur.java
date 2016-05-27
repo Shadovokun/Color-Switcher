@@ -13,9 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class ChoisirCouleur extends JFrame {
+public class ChoisirCouleur extends fenetre {
 
-	private JPanel contentPane;
+	JPanel contentPane;
+	JFrame fenetre;
 
 	/**
 	 * Launch the application.
@@ -36,14 +37,14 @@ public class ChoisirCouleur extends JFrame {
 	 * Create the frame.
 	 */
 	public ChoisirCouleur() {
-		setTitle("COLOR SWITCHER");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
-		setBounds(100, 100, 450, 300);
+		fenetre=new JFrame(super.title);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setVisible(true);
+		fenetre.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		fenetre.setContentPane(contentPane);
 		
 		JColorChooser colorChooser = new JColorChooser();
 		contentPane.add(colorChooser, BorderLayout.CENTER);
@@ -65,7 +66,7 @@ public class ChoisirCouleur extends JFrame {
 		}
 		public void mouseClicked(MouseEvent e) {
 			Accueil accueil=new Accueil();
-			a.dispose();
+			a.fenetre.dispose();
 		}
 		public void mousePressed(MouseEvent e) { }
 		public void mouseReleased(MouseEvent e) { }

@@ -20,9 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class AffichageDunSet extends JFrame {
+public class AffichageDunSet extends fenetre {
 
-	private JPanel contentPane;
+	JPanel contentPane;
+	JFrame fenetre;
 	Sets s;
 
 	/**
@@ -30,13 +31,13 @@ public class AffichageDunSet extends JFrame {
 	 */
 	public AffichageDunSet(ArrayList<Color> set, Sets s) {
 		this.s=s;
-		setTitle("COLOR SWITCHER");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
-		setBounds(100, 100, 450, 300);
+		fenetre=new JFrame(super.title);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setVisible(true);
+		fenetre.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		fenetre.setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		
 		JPanel panel = new JPanel();
@@ -168,8 +169,8 @@ public class AffichageDunSet extends JFrame {
 			this.a=a;
 		}
 		public void mouseClicked(MouseEvent e) {
-			a.s.pack();
-			s.dispose();
+			a.s.fenetre.pack();  //rouvrir la fenetre ?
+			s.fenetre.dispose();
 		}
 		public void mousePressed(MouseEvent e) { }
 		public void mouseReleased(MouseEvent e) { }

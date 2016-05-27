@@ -18,9 +18,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Action;
 
-public class Accueil extends JFrame {
+public class Accueil extends fenetre {
 
-	private JPanel contentPane;
+	JPanel contentPane;
+	JFrame fenetre;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -35,13 +36,13 @@ public class Accueil extends JFrame {
 	}
 
 	public Accueil() {
-		setTitle("COLOR SWITCHER");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);  
-		setBounds(100, 100, 450, 300);
+		fenetre= new JFrame(super.title);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setVisible(true);  
+		fenetre.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		fenetre.setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -68,7 +69,7 @@ public class Accueil extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			Sets setPredef=new Sets(true);
-			a.dispose();
+			a.fenetre.dispose();
 		}
 	}
 	
@@ -79,7 +80,7 @@ public class Accueil extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			ChoisirCouleur choisirCouleur=new ChoisirCouleur();
-			a.dispose();
+			a.fenetre.dispose();
 		}
 	}
 }
