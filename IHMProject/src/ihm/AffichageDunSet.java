@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class AffichageSet extends JFrame {
+public class AffichageDunSet extends JFrame {
 
 	private JPanel contentPane;
 	Sets s;
@@ -28,7 +28,7 @@ public class AffichageSet extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AffichageSet(ArrayList<Color> set, Sets s) {
+	public AffichageDunSet(ArrayList<Color> set, Sets s) {
 		this.s=s;
 		setTitle("COLOR SWITCHER");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,8 +163,8 @@ public class AffichageSet extends JFrame {
 	}
 	
 	private class ActionPrecedent implements MouseListener {
-		AffichageSet a;
-		public ActionPrecedent(AffichageSet a){
+		AffichageDunSet a;
+		public ActionPrecedent(AffichageDunSet a){
 			this.a=a;
 		}
 		public void mouseClicked(MouseEvent e) {
