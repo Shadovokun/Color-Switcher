@@ -1,35 +1,26 @@
 package ihm;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
-import Fail.Accueil;
-import Fail.ChoisirCouleur;
-import Fail.Sets;
-
-public class SetPredef_Accueil {
+public class Accueil {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SetPredef_Accueil frame = new SetPredef_Accueil();
+					Accueil frame = new Accueil();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,37 +28,69 @@ public class SetPredef_Accueil {
 		});
 	}
 
-	public SetPredef_Accueil() {
+	public Accueil() {
 		//Création de la fenetre
 		JFrame fenetre= new JFrame("COLOR SWITCHER");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setBounds(0, 0, 450, 300);
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setResizable(false);
-		fenetre.setVisible(true);
 		
 		//Création du JPanel principal
-		JPanel contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		fenetre.setContentPane(contentPane);
+		JPanel panel1 = new JPanel();
+		panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel1.setLayout(new BorderLayout(0, 0));
+		
+		//Création onglets
+		JTabbedPane onglets=new JTabbedPane(JTabbedPane.TOP);
+		
+		//Onglet1
+		JPanel predef=new JPanel();
+		JLabel titrePredef=new JLabel("Prédéfinis");
+		JPanel panel2=new JPanel();
+		JPanel panel3=new JPanel();
+		panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
+		
+			//haut
+			JLabel labelNbCouleurs = new JLabel("Nombre de couleurs / set : ");
+			panel3.add(labelNbCouleurs);
+			JComboBox comboBox = new JComboBox();
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
+			comboBox.setSelectedIndex(0);
+			panel3.add(comboBox);
+			
+			//bas
+			JPanel panel4=new JPanel();
+			
+			//milieu
+		
+		panel2.add(panel3, BorderLayout.NORTH);
+		panel2.add(panel4, BorderLayout.SOUTH);
+		predef.add(panel2);
+		onglets.addTab("Prédéfinis", predef);
+			
+		//Onglet2
+		JPanel creer=new JPanel();
+		JLabel titreCreer=new JLabel("ZBLAH !");
+		creer.add(titreCreer);
+		onglets.addTab("Créer", creer);
+		
+		
+		panel1.add(onglets);
+		fenetre.setContentPane(panel1);
+		fenetre.setVisible(true);
+
+		
 		
 		//Contenu de la fenetre
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
+		/*JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		Component horizontalGlue = Box.createHorizontalGlue();
 		panel.add(horizontalGlue);
 		
-		JLabel lblNombreDeCouleurs = new JLabel("Nombre de couleurs / set : ");
-		panel.add(lblNombreDeCouleurs);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
-		comboBox.setSelectedIndex(1);
-		comboBox.setMaximumRowCount(4);
-		panel.add(comboBox);
 		
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		panel.add(horizontalGlue_1);
@@ -91,7 +114,7 @@ public class SetPredef_Accueil {
 			setsJPanel[i]=getSetJPanel(4);
 			panel_2.add(setsJPanel[i]);
 		}
-		panel_2.add(new JPanel());
+		panel_2.add(new JPanel());*/
 	}
 	
 	/**
@@ -109,8 +132,8 @@ public class SetPredef_Accueil {
 	}
 	
 	private class ActionValider implements ActionListener {
-		SetPredef_Accueil a;
-		public ActionValider (SetPredef_Accueil a){
+		Accueil a;
+		public ActionValider (Accueil a){
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {
