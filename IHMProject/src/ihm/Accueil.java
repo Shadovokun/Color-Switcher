@@ -1,20 +1,28 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.border.EmptyBorder;
 
 public class Accueil {
+	
+	int nbCouleurs=3;
+	JFrame fenetre;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -30,43 +38,58 @@ public class Accueil {
 
 	public Accueil() {
 		//Création de la fenetre
-		JFrame fenetre= new JFrame("COLOR SWITCHER");
+		fenetre= new JFrame("COLOR SWITCHER");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setBounds(0, 0, 450, 300);
+		fenetre.setPreferredSize(new Dimension(450,300));
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setResizable(false);
-		
-		//Création du JPanel principal
-		JPanel panel1 = new JPanel();
-		panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel1.setLayout(new BorderLayout(0, 0));
 		
 		//Création onglets
 		JTabbedPane onglets=new JTabbedPane(JTabbedPane.TOP);
 		
 		//Onglet1
 		JPanel predef=new JPanel();
+		predef.setLayout(new BorderLayout());
 		JLabel titrePredef=new JLabel("Prédéfinis");
-		JPanel panel2=new JPanel();
-		JPanel panel3=new JPanel();
-		panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
+		JPanel panel1=new JPanel();
+		panel1.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
 			//haut
 			JLabel labelNbCouleurs = new JLabel("Nombre de couleurs / set : ");
-			panel3.add(labelNbCouleurs);
+			panel1.add(labelNbCouleurs);
 			JComboBox comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
 			comboBox.setSelectedIndex(0);
-			panel3.add(comboBox);
+			comboBox.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+					nbCouleurs=Integer.parseInt((String) comboBox.getSelectedItem());
+					fenetre.pack();
+				}
+				
+			});
+			panel1.add(comboBox);
 			
 			//bas
-			JPanel panel4=new JPanel();
+			JPanel panel2=new JPanel();
+			JButton btnValider = new JButton("✓");
+			btnValider.setFont(new Font("Dialog", Font.BOLD, 16));
+			panel2.add(btnValider);
 			
 			//milieu
+			JPanel panel3=new JPanel();
+			panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
+			int nbSets=5;
+			JPanel[] setsJPanel=new JPanel[nbSets];
+			for(int i=0; i<nbSets; i++) {
+				panel3.add(new JPanel());
+				setsJPanel[i]=getSetJPanel(nbCouleurs);
+				panel3.add(setsJPanel[i]);
+			}
+			panel3.add(new JPanel());
 		
-		panel2.add(panel3, BorderLayout.NORTH);
-		panel2.add(panel4, BorderLayout.SOUTH);
-		predef.add(panel2);
+		predef.add(panel1, BorderLayout.NORTH);
+		predef.add(panel2, BorderLayout.SOUTH);
+		predef.add(panel3, BorderLayout.CENTER);
 		onglets.addTab("Prédéfinis", predef);
 			
 		//Onglet2
@@ -76,45 +99,9 @@ public class Accueil {
 		onglets.addTab("Créer", creer);
 		
 		
-		panel1.add(onglets);
-		fenetre.setContentPane(panel1);
+		fenetre.setContentPane(onglets);
 		fenetre.setVisible(true);
-
-		
-		
-		//Contenu de la fenetre
-		/*JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		
-		Component horizontalGlue = Box.createHorizontalGlue();
-		panel.add(horizontalGlue);
-		
-		
-		
-		Component horizontalGlue_1 = Box.createHorizontalGlue();
-		panel.add(horizontalGlue_1);
-		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.SOUTH);
-		
-		JButton btnValider = new JButton("✓");
-		btnValider.setFont(new Font("Dialog", Font.BOLD, 16));
-		panel_1.add(btnValider);
-		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.CENTER);
-		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
-		
-		int nbSets=5;
-		JPanel[] setsJPanel=new JPanel[nbSets];
-		
-		for(int i=0; i<nbSets; i++) {
-			panel_2.add(new JPanel());
-			setsJPanel[i]=getSetJPanel(4);
-			panel_2.add(setsJPanel[i]);
-		}
-		panel_2.add(new JPanel());*/
+		fenetre.pack();
 	}
 	
 	/**
@@ -137,8 +124,8 @@ public class Accueil {
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {
-			//ChoisirCouleur choisirCouleur=new ChoisirCouleur();
-			//a.dispose();
+			//AffichageCouleurs AffichageCouleurs=new AffichageCouleurs();
+			//a.fenetre.dispose();
 		}
 	}
 	
