@@ -1,22 +1,18 @@
-package ihm;
+package Fail;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class Accueil extends fenetre {
 
@@ -38,8 +34,11 @@ public class Accueil extends fenetre {
 	public Accueil() {
 		fenetre= new JFrame(super.title);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setVisible(true);  
-		fenetre.setBounds(100, 100, 450, 300);
+		fenetre.setBounds(0, 0, super.width, super.height);
+		fenetre.setLocationRelativeTo(null);
+		super.setPosX(fenetre.getX());
+		super.setPosY(fenetre.getY());
+		fenetre.setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		fenetre.setContentPane(contentPane);
@@ -61,6 +60,8 @@ public class Accueil extends fenetre {
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		contentPane.add(label, BorderLayout.NORTH);
 	}
+	
+	
 
 	private class ActionSetPredef implements ActionListener {
 		Accueil a;

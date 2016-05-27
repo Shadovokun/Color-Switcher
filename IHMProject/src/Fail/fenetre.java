@@ -1,4 +1,4 @@
-package ihm;
+package Fail;
 
 public class fenetre {
 	
@@ -22,10 +22,12 @@ public class fenetre {
 	
 	public void setPosX(int x) {
 		posX=x;
+		System.out.println(x);
 	}
 	
 	public void setPosY(int y){
 		posY=y;
+		System.out.println(y);
 	}
 
 }

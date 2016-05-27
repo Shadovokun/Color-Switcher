@@ -1,4 +1,4 @@
-package ihm;
+package Fail;
 
 import java.awt.BorderLayout;
 import java.awt.Component;

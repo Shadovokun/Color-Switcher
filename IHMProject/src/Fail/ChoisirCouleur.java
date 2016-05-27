@@ -1,4 +1,4 @@
-package ihm;
+package Fail;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -39,8 +39,10 @@ public class ChoisirCouleur extends fenetre {
 	public ChoisirCouleur() {
 		fenetre=new JFrame(super.title);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setBounds(0, 0, super.width, super.height);
+		super.setPosX(fenetre.getX());
+		super.setPosY(fenetre.getY());
 		fenetre.setVisible(true);
-		fenetre.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
