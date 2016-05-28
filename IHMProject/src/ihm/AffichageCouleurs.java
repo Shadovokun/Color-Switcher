@@ -18,11 +18,17 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.Box;
 
 public class AffichageCouleurs extends JFrame {
 
 	private JPanel contentPane;
+	private Clipboard clipbd =	getToolkit().getSystemClipboard();
 
 	/**
 	 * Launch the application.
@@ -74,7 +80,7 @@ public class AffichageCouleurs extends JFrame {
 		JLabel lblRouge = new JLabel("Rouge : ");
 		panel_8.add(lblRouge);
 		
-		JLabel lblNbrouge = new JLabel("nbRouge");
+		JLabel lblNbrouge = new JLabel("0");
 		panel_8.add(lblNbrouge);
 		
 		JPanel panel_9 = new JPanel();
@@ -82,6 +88,7 @@ public class AffichageCouleurs extends JFrame {
 		panel_9.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnCopierRouge = new JButton("Copier");
+		btnCopierRouge.addActionListener(new Copy(lblNbrouge));
 		panel_9.add(btnCopierRouge);
 		
 		JPanel panel_6 = new JPanel();
@@ -95,13 +102,14 @@ public class AffichageCouleurs extends JFrame {
 		JLabel lblVert = new JLabel("Vert : ");
 		panel_10.add(lblVert);
 		
-		JLabel lblNbvert = new JLabel("nbVert");
+		JLabel lblNbvert = new JLabel("0");
 		panel_10.add(lblNbvert);
 		
 		JPanel panel_11 = new JPanel();
 		panel_6.add(panel_11);
 		
 		JButton btnCopierVert = new JButton("Copier");
+		btnCopierVert.addActionListener(new Copy(lblNbvert));
 		panel_11.add(btnCopierVert);
 		
 		JPanel panel_7 = new JPanel();
@@ -115,13 +123,14 @@ public class AffichageCouleurs extends JFrame {
 		JLabel lblBleu = new JLabel("Bleu : ");
 		panel_12.add(lblBleu);
 		
-		JLabel lblNbbleu = new JLabel("nbBleu");
+		JLabel lblNbbleu = new JLabel("0");
 		panel_12.add(lblNbbleu);
 		
 		JPanel panel_13 = new JPanel();
 		panel_7.add(panel_13);
 		
-		JButton btnCopierBleu = new JButton("Copier");
+		JButton btnCopierBleu = new JButton("0");
+		btnCopierBleu.addActionListener(new Copy(lblNbbleu));
 		panel_13.add(btnCopierBleu);
 		
 		JPanel panel_3 = new JPanel();
@@ -136,13 +145,14 @@ public class AffichageCouleurs extends JFrame {
 		panel_3.add(panel_14);
 		panel_14.setLayout(new BoxLayout(panel_14, BoxLayout.X_AXIS));
 		
-		JLabel lblNbhexa = new JLabel("nbHexa");
+		JLabel lblNbhexa = new JLabel("0x0");
 		panel_14.add(lblNbhexa);
 		
 		JPanel panel_15 = new JPanel();
 		panel_3.add(panel_15);
 		
 		JButton btnCopierHexa = new JButton("Copier");
+		btnCopierHexa.addActionListener(new Copy(lblNbhexa));
 		panel_15.add(btnCopierHexa);
 		
 		JPanel panel_4 = new JPanel();
@@ -160,11 +170,15 @@ public class AffichageCouleurs extends JFrame {
 		JLabel lblTeinte = new JLabel("Teinte : ");
 		panel_19.add(lblTeinte);
 		
-		JLabel lblNbteinte = new JLabel("nbTeinte");
+		JLabel lblNbteinte = new JLabel("0");
 		panel_19.add(lblNbteinte);
 		
 		JPanel panel_20 = new JPanel();
 		panel_16.add(panel_20);
+		
+		JButton btnCopierTeinte = new JButton("Copier");
+		btnCopierTeinte.addActionListener(new Copy(lblNbteinte));
+		panel_20.add(btnCopierTeinte);
 		
 		JPanel panel_17 = new JPanel();
 		panel_4.add(panel_17);
@@ -176,11 +190,15 @@ public class AffichageCouleurs extends JFrame {
 		JLabel lblSaturation = new JLabel("Saturation : ");
 		panel_21.add(lblSaturation);
 		
-		JLabel lblNbsaturation = new JLabel("nbSaturation");
+		JLabel lblNbsaturation = new JLabel("0");
 		panel_21.add(lblNbsaturation);
 		
 		JPanel panel_22 = new JPanel();
 		panel_17.add(panel_22);
+		
+		JButton btnCopierSaturation = new JButton("Copier");
+		btnCopierSaturation.addActionListener(new Copy(lblNbsaturation));
+		panel_22.add(btnCopierSaturation);
 		
 		JPanel panel_18 = new JPanel();
 		panel_4.add(panel_18);
@@ -192,11 +210,27 @@ public class AffichageCouleurs extends JFrame {
 		JLabel lblValeur = new JLabel("Valeur");
 		panel_23.add(lblValeur);
 		
-		JLabel lblNbvaleur = new JLabel("nbValeur");
+		JLabel lblNbvaleur = new JLabel("0");
 		panel_23.add(lblNbvaleur);
 		
 		JPanel panel_24 = new JPanel();
 		panel_18.add(panel_24);
+		
+		JButton btnCopierValeur = new JButton("Copier");
+		btnCopierValeur.addActionListener(new Copy(lblNbvaleur));
+		panel_24.add(btnCopierValeur);
 	}
 
+	class Copy implements ActionListener {
+		JLabel value;
+		public Copy(JLabel v) {
+			value = v;
+		}
+		public void actionPerformed(ActionEvent e) {
+			String selection = value.getText();
+			if(selection == null) {return;}
+			StringSelection clipString = new StringSelection(selection);
+			clipbd.setContents(clipString,clipString);
+		}
+}
 }
