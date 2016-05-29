@@ -13,6 +13,7 @@ import java.awt.event.ItemListener;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +22,7 @@ import javax.swing.JTabbedPane;
 
 public class Accueil {
 	
-	int nbCouleurs=3;
+	int nbCouleurs=5;
 	JFrame fenetre;
 
 	public static void main(String[] args) {
@@ -40,7 +41,7 @@ public class Accueil {
 		//Création de la fenetre
 		fenetre= new JFrame("COLOR SWITCHER");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setPreferredSize(new Dimension(450,300));
+		fenetre.setPreferredSize(new Dimension(600,450));
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setResizable(false);
 		
@@ -57,7 +58,7 @@ public class Accueil {
 			//milieu
 			JPanel panel3=new JPanel();
 			panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
-			int nbSets=5;
+			int nbSets=8;
 			JPanel[] setsJPanel=new JPanel[nbSets];
 			for(int i=0; i<nbSets; i++) {
 				panel3.add(new JPanel());
@@ -71,7 +72,7 @@ public class Accueil {
 			panel1.add(labelNbCouleurs);
 			JComboBox comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
-			comboBox.setSelectedIndex(0);
+			comboBox.setSelectedIndex(2);
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
 					nbCouleurs=Integer.parseInt((String) comboBox.getSelectedItem());
@@ -90,9 +91,9 @@ public class Accueil {
 			
 			//bas
 			JPanel panel2=new JPanel();
-			JButton btnValider = new JButton("✓");
-			btnValider.setFont(new Font("Dialog", Font.BOLD, 16));
-			panel2.add(btnValider);
+			JButton btnValider1 = new JButton("✓");
+			btnValider1.setFont(new Font("Dialog", Font.BOLD, 16));
+			panel2.add(btnValider1);
 		
 		predef.add(panel1, BorderLayout.NORTH);
 		predef.add(panel2, BorderLayout.SOUTH);
@@ -101,9 +102,36 @@ public class Accueil {
 			
 		//Onglet2
 		JPanel creer=new JPanel();
-		JLabel titreCreer=new JLabel("ZBLAH !");
-		creer.add(titreCreer);
+		creer.setLayout(new BorderLayout());
 		onglets.addTab("Créer", creer);
+		JColorChooser colorChooser = new JColorChooser();
+		
+		JPanel panel4=new JPanel();
+		panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
+		JPanel panel5=new JPanel();
+		panel5.setLayout(new FlowLayout(FlowLayout.CENTER));
+		panel5.add(new JLabel("Nombre de couleurs du set : "));
+		JComboBox comboBox2 = new JComboBox();
+		comboBox2.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
+		comboBox2.setSelectedIndex(2);
+		comboBox2.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				nbCouleurs=Integer.parseInt((String) comboBox2.getSelectedItem());
+			}
+			
+		});
+		panel5.add(comboBox2);
+		
+		JPanel panel6=new JPanel();
+		JButton btnValider2 = new JButton("✓");
+		btnValider2.setFont(new Font("Dialog", Font.BOLD, 16));
+		panel6.add(btnValider2);
+		
+		panel4.add(panel5);
+		panel4.add(panel6);
+		
+		creer.add(panel4, BorderLayout.SOUTH);
+		creer.add(colorChooser);
 		
 		
 		fenetre.setContentPane(onglets);
