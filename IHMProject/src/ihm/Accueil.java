@@ -53,28 +53,7 @@ public class Accueil {
 		JLabel titrePredef=new JLabel("Prédéfinis");
 		JPanel panel1=new JPanel();
 		panel1.setLayout(new FlowLayout(FlowLayout.CENTER));
-		
-			//haut
-			JLabel labelNbCouleurs = new JLabel("Nombre de couleurs / set : ");
-			panel1.add(labelNbCouleurs);
-			JComboBox comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
-			comboBox.setSelectedIndex(0);
-			comboBox.addItemListener(new ItemListener() {
-				public void itemStateChanged(ItemEvent e) {
-					nbCouleurs=Integer.parseInt((String) comboBox.getSelectedItem());
-					fenetre.pack();
-				}
-				
-			});
-			panel1.add(comboBox);
-			
-			//bas
-			JPanel panel2=new JPanel();
-			JButton btnValider = new JButton("✓");
-			btnValider.setFont(new Font("Dialog", Font.BOLD, 16));
-			panel2.add(btnValider);
-			
+
 			//milieu
 			JPanel panel3=new JPanel();
 			panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
@@ -86,6 +65,34 @@ public class Accueil {
 				panel3.add(setsJPanel[i]);
 			}
 			panel3.add(new JPanel());
+		
+			//haut
+			JLabel labelNbCouleurs = new JLabel("Nombre de couleurs / set : ");
+			panel1.add(labelNbCouleurs);
+			JComboBox comboBox = new JComboBox();
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
+			comboBox.setSelectedIndex(0);
+			comboBox.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+					nbCouleurs=Integer.parseInt((String) comboBox.getSelectedItem());
+					panel3.removeAll();
+					for(int i=0; i<nbSets; i++) {
+						panel3.add(new JPanel());
+						setsJPanel[i]=getSetJPanel(nbCouleurs);
+						panel3.add(setsJPanel[i]);
+					}
+					panel3.add(new JPanel());
+					fenetre.pack();
+				}
+				
+			});
+			panel1.add(comboBox);
+			
+			//bas
+			JPanel panel2=new JPanel();
+			JButton btnValider = new JButton("✓");
+			btnValider.setFont(new Font("Dialog", Font.BOLD, 16));
+			panel2.add(btnValider);
 		
 		predef.add(panel1, BorderLayout.NORTH);
 		predef.add(panel2, BorderLayout.SOUTH);
@@ -118,7 +125,7 @@ public class Accueil {
 		return p;
 	}
 	
-	private class ActionValider implements ActionListener {
+	class ActionValider implements ActionListener {
 		Accueil a;
 		public ActionValider (Accueil a){
 			this.a=a;
