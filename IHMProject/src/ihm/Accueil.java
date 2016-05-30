@@ -1,6 +1,7 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -147,8 +149,30 @@ public class Accueil {
 	JPanel getSetJPanel(int nbCouleurs){
 		JPanel p=new JPanel();
 		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-		for(int i=0; i<nbCouleurs; i++) {
-			p.add(new JLabel(""+(i+1)));
+		ArrayList <Color> couleurs=new ArrayList<>();
+		couleurs.add(Color.BLACK);
+		couleurs.add(Color.BLUE);
+		couleurs.add(Color.RED);
+		couleurs.add(Color.GREEN);
+		couleurs.add(Color.YELLOW);
+		couleurs.add(Color.ORANGE);
+		couleurs.add(Color.PINK);
+		couleurs.add(Color.CYAN);
+		couleurs.add(Color.MAGENTA);
+		couleurs.add(Color.RED);
+		JPanel couleur;
+		int c=0;
+		for(int i=0; i<10; i++) {
+			if(i<10/2-nbCouleurs/2) {
+				p.add(new JPanel());
+			} else if (i>=10/2-nbCouleurs/2 && i<10/2-nbCouleurs/2+nbCouleurs){
+				couleur=new JPanel();
+				couleur.setBackground(couleurs.get(c));
+				p.add(couleur);
+				c++;
+			} else {
+				p.add(new JPanel());
+			}
 		}
 		return p;
 	}
