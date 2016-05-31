@@ -10,8 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -21,11 +24,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.border.BevelBorder;
 
 public class Accueil {
 	
 	int nbCouleurs=5;
 	JFrame fenetre;
+	ArrayList<Color> selection=new ArrayList<>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -161,20 +166,42 @@ public class Accueil {
 		couleurs.add(Color.MAGENTA);
 		couleurs.add(Color.RED);
 		JPanel couleur;
+		JPanel set=new JPanel();
+		set.setLayout(new BoxLayout(set, BoxLayout.Y_AXIS));
 		int c=0;
-		for(int i=0; i<10; i++) {
+		for(int i=0; i<10/2-nbCouleurs/2+nbCouleurs; i++) {
 			if(i<10/2-nbCouleurs/2) {
 				p.add(new JPanel());
-			} else if (i>=10/2-nbCouleurs/2 && i<10/2-nbCouleurs/2+nbCouleurs){
+			} else {
 				couleur=new JPanel();
 				couleur.setBackground(couleurs.get(c));
-				p.add(couleur);
+				set.add(couleur);
 				c++;
-			} else {
-				p.add(new JPanel());
 			}
 		}
+		set.addMouseListener(new SelectionSet(set));
+		p.add(set);
+		for (int i=10/2-nbCouleurs/2+nbCouleurs; i<10 ; i++){
+			p.add(new JPanel());
+		}
 		return p;
+	}
+	
+	class SelectionSet extends MouseAdapter {
+		JPanel set;
+		
+		public SelectionSet(JPanel set){
+			this.set=set;
+		}
+		public void mouseClicked(MouseEvent arg0) {
+			set.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+			selection.clear();
+			for(int i=0; i<set.getComponentCount(); i++) {
+				selection.add(set.getComponent(i).getBackground());
+				System.out.println(set.getComponent(i).getBackground().toString());
+			}
+		}
+		
 	}
 	
 	class ActionValider implements ActionListener {
@@ -183,8 +210,10 @@ public class Accueil {
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {
-			//AffichageCouleurs AffichageCouleurs=new AffichageCouleurs();
-			//a.fenetre.dispose();
+			if(selection.size()!=0){
+				AffichageCouleurs AffichageCouleurs=new AffichageCouleurs();
+				a.fenetre.dispose();
+			}
 		}
 	}
 	
