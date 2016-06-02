@@ -1,18 +1,20 @@
 package ihm;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -26,12 +28,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-public class AffichageCouleurs extends JFrame {
+public class AffichageCouleurs {
 
 	private JPanel contentPane;
 	JPanel stats=new JPanel();
 	JPanel panel=new JPanel();
-	private Clipboard clipbd =	getToolkit().getSystemClipboard();
+	JFrame fenetre=new JFrame("COLOR SWITCHER");
+	private Clipboard clipbd =	fenetre.getToolkit().getSystemClipboard();
 	int pointeur=0; //couleur affichée: la première du set
 
 	/**
@@ -53,7 +56,6 @@ public class AffichageCouleurs extends JFrame {
 					couleurs.add(Color.MAGENTA);
 					couleurs.add(Color.RED);
 					AffichageCouleurs frame = new AffichageCouleurs(couleurs);
-					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,11 +67,14 @@ public class AffichageCouleurs extends JFrame {
 	 * Create the frame.
 	 */
 	public AffichageCouleurs(ArrayList<Color> couleurs) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 450);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setPreferredSize(new Dimension(600,450));
+		fenetre.setLocationRelativeTo(null);
+		fenetre.setResizable(false);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		fenetre.setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
 		//affichage des couleurs
@@ -77,7 +82,7 @@ public class AffichageCouleurs extends JFrame {
 		JPanel[] panelsCouleurs=new JPanel[couleurs.size()];
 			for(int i=0; i<couleurs.size(); i++) {
 				panelC=new JPanel();
-				panelC.setPreferredSize(new Dimension(35,25));
+				panelC.setPreferredSize(new Dimension(45,35));
 				panelC.setBackground(couleurs.get(i));
 				panelsCouleurs[i]=panelC;
 				panel.add(panelC);
@@ -86,10 +91,24 @@ public class AffichageCouleurs extends JFrame {
 			for(int i=0; i<panelsCouleurs.length; i++) {
 				panelsCouleurs[i].addMouseListener(new SelectionCouleur(i, panelsCouleurs));
 			}
+
+		JPanel bouche_trou1=new JPanel();
+		bouche_trou1.setPreferredSize(new Dimension(45,35));
+		bouche_trou1.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JLabel retour=new JLabel(" ←");
+		retour.setFont(new Font("Dialog", Font.BOLD, 22));
+		retour.addMouseListener(new ActionRetour(this));
+		bouche_trou1.add(retour);
+		contentPane.add(bouche_trou1);
 		contentPane.add(panel);
+		JPanel bouche_trou2=new JPanel();
+		bouche_trou2.setPreferredSize(new Dimension(45,35));
+		contentPane.add(bouche_trou2);
+		stats.setLayout(new BorderLayout());
 		stats.add(StatsCouleur(panel));
 		contentPane.add(stats);
-		pack();
+		fenetre.pack();
+		fenetre.setVisible(true);
 	}
 	
 	public JPanel StatsCouleur(JPanel couleurs){
@@ -290,7 +309,23 @@ public class AffichageCouleurs extends JFrame {
 			couleurs[i].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 			stats.removeAll();
 			stats.add(StatsCouleur(panel));
-			pack();
+			fenetre.pack();
 		}
+	}
+	
+	private class ActionRetour implements MouseListener {
+		AffichageCouleurs a;
+		public ActionRetour(AffichageCouleurs a){
+			this.a=a;
+		}
+		public void mouseClicked(MouseEvent e) {
+			//Accueil accueil=new Accueil();
+			// pb à regler
+			a.fenetre.dispose();
+		}
+		public void mousePressed(MouseEvent e) { }
+		public void mouseReleased(MouseEvent e) { }
+		public void mouseEntered(MouseEvent e) { }
+		public void mouseExited(MouseEvent e) { }
 	}
 }
