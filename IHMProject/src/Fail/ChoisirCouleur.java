@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class ChoisirCouleur extends fenetre {
+public class ChoisirCouleur {
 
 	JPanel contentPane;
 	JFrame fenetre;
@@ -37,11 +37,9 @@ public class ChoisirCouleur extends fenetre {
 	 * Create the frame.
 	 */
 	public ChoisirCouleur() {
-		fenetre=new JFrame(super.title);
+		fenetre=new JFrame();
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setBounds(0, 0, super.width, super.height);
-		super.setPosX(fenetre.getX());
-		super.setPosY(fenetre.getY());
+		fenetre.setBounds(0, 0, 650, 400);
 		fenetre.setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -67,7 +65,7 @@ public class ChoisirCouleur extends fenetre {
 			this.a=a;
 		}
 		public void mouseClicked(MouseEvent e) {
-			Accueil accueil=new Accueil();
+			AccueilFail accueil=new AccueilFail();
 			a.fenetre.dispose();
 		}
 		public void mousePressed(MouseEvent e) { }

@@ -179,6 +179,7 @@ public class Accueil {
 			JPanel panel2=new JPanel();
 			JButton btnValider1 = new JButton("✓");
 			btnValider1.setFont(new Font("Dialog", Font.BOLD, 16));
+			btnValider1.addActionListener(new ActionValider(this));
 			panel2.add(btnValider1);
 		
 		predef.add(panel1, BorderLayout.NORTH);
@@ -207,15 +208,15 @@ public class Accueil {
 			
 		});
 		panel5.add(comboBox2);
+		JPanel panel6=new JPanel();
+		JButton btnValider2 = new JButton("✓");
+		btnValider2.setFont(new Font("Dialog", Font.BOLD, 16));
+		btnValider2.addActionListener(new ActionValider(this));
+		panel6.add(btnValider2);
 		
 		//Onglet3
 		JPanel verifier=new JPanel();
 		onglets.addTab("Vérifier", verifier);
-		
-		JPanel panel6=new JPanel();
-		JButton btnValider2 = new JButton("✓");
-		btnValider2.setFont(new Font("Dialog", Font.BOLD, 16));
-		panel6.add(btnValider2);
 		
 		panel4.add(panel5);
 		panel4.add(panel6);
@@ -257,7 +258,7 @@ public class Accueil {
 		}
 		public void actionPerformed(ActionEvent e) {
 			if(selection.size()!=0){
-				AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection);
+				AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a);
 				a.fenetre.dispose();
 			}
 		}

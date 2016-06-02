@@ -30,12 +30,14 @@ import javax.swing.border.TitledBorder;
 
 public class AffichageCouleurs {
 
-	private JPanel contentPane;
+	Accueil accueil;
+	JPanel contentPane;
 	JPanel stats=new JPanel();
 	JPanel panel=new JPanel();
 	JFrame fenetre=new JFrame("COLOR SWITCHER");
-	private Clipboard clipbd =	fenetre.getToolkit().getSystemClipboard();
+	Clipboard clipbd =	fenetre.getToolkit().getSystemClipboard();
 	int pointeur=0; //couleur affichée: la première du set
+	
 
 	/**
 	 * Launch the application.
@@ -55,7 +57,7 @@ public class AffichageCouleurs {
 					couleurs.add(Color.CYAN);
 					couleurs.add(Color.MAGENTA);
 					couleurs.add(Color.RED);
-					AffichageCouleurs frame = new AffichageCouleurs(couleurs);
+					AffichageCouleurs frame = new AffichageCouleurs(couleurs, null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -66,7 +68,8 @@ public class AffichageCouleurs {
 	/**
 	 * Create the frame.
 	 */
-	public AffichageCouleurs(ArrayList<Color> couleurs) {
+	public AffichageCouleurs(ArrayList<Color> couleurs, Accueil accueil) {
+		this.accueil=accueil;
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setPreferredSize(new Dimension(600,450));
 		fenetre.setLocationRelativeTo(null);
@@ -314,14 +317,13 @@ public class AffichageCouleurs {
 	}
 	
 	private class ActionRetour implements MouseListener {
-		AffichageCouleurs a;
-		public ActionRetour(AffichageCouleurs a){
-			this.a=a;
+		AffichageCouleurs affichage;
+		public ActionRetour(AffichageCouleurs affichage){
+			this.affichage=affichage;
 		}
 		public void mouseClicked(MouseEvent e) {
-			//Accueil accueil=new Accueil();
-			// pb à regler
-			a.fenetre.dispose();
+			affichage.fenetre.dispose();
+			accueil.fenetre.setVisible(true);
 		}
 		public void mousePressed(MouseEvent e) { }
 		public void mouseReleased(MouseEvent e) { }

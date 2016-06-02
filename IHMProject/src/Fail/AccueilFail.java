@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class Accueil extends fenetre {
+public class AccueilFail extends fenetre {
 
 	JPanel contentPane;
 	JFrame fenetre;
@@ -23,7 +23,7 @@ public class Accueil extends fenetre {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Accueil frame = new Accueil();
+					AccueilFail frame = new AccueilFail();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -31,7 +31,7 @@ public class Accueil extends fenetre {
 		});
 	}
 
-	public Accueil() {
+	public AccueilFail() {
 		fenetre= new JFrame(super.title);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setBounds(0, 0, super.width, super.height);
@@ -64,8 +64,8 @@ public class Accueil extends fenetre {
 	
 
 	private class ActionSetPredef implements ActionListener {
-		Accueil a;
-		public ActionSetPredef(Accueil a){
+		AccueilFail a;
+		public ActionSetPredef(AccueilFail a){
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -75,8 +75,8 @@ public class Accueil extends fenetre {
 	}
 	
 	private class ActionGenererSet implements ActionListener {
-		Accueil a;
-		public ActionGenererSet(Accueil a){
+		AccueilFail a;
+		public ActionGenererSet(AccueilFail a){
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {

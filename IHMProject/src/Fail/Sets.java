@@ -100,7 +100,7 @@ public class Sets extends fenetre {
 		}
 		public void mouseClicked(MouseEvent e) {
 			if(a.fromAccueil){
-				Accueil accueil=new Accueil();
+				AccueilFail accueil=new AccueilFail();
 			} else {
 				ChoisirCouleur choice= new ChoisirCouleur();
 			}
