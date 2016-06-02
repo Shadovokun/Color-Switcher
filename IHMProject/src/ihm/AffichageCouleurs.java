@@ -189,6 +189,8 @@ public class AffichageCouleurs extends JFrame {
 		JPanel panel_19 = new JPanel();
 		panel_16.add(panel_19);
 		
+		
+		//trouver comment modifer les valeurs TSV
 		JLabel lblTeinte = new JLabel("Teinte : ");
 		panel_19.add(lblTeinte);
 		
