@@ -72,7 +72,7 @@ public class Accueil {
 		});
 	}
 
-	public Accueil(ArrayList<ArrayList<Color>> listeCouleurs) {
+	public Accueil(final ArrayList<ArrayList<Color>> listeCouleurs) {
 		//Création de la fenetre
 		fenetre= new JFrame("COLOR SWITCHER");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,9 +91,9 @@ public class Accueil {
 		panel1.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 			//milieu
-			JPanel panel3=new JPanel();
+			final JPanel panel3=new JPanel();
 			panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
-			JPanel[] setsJPanel=new JPanel[nbSets];
+			final JPanel[] setsJPanel=new JPanel[nbSets];
 			for(int i=0; i<nbSets; i++) {
 				panel3.add(new JPanel());
 				
@@ -130,7 +130,7 @@ public class Accueil {
 			//haut
 			JLabel labelNbCouleurs = new JLabel("Nombre de couleurs / set : ");
 			panel1.add(labelNbCouleurs);
-			JComboBox comboBox = new JComboBox();
+			final JComboBox comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
 			comboBox.setSelectedIndex(2);
 			comboBox.addItemListener(new ItemListener() {
@@ -139,8 +139,34 @@ public class Accueil {
 					panel3.removeAll();
 					for(int i=0; i<nbSets; i++) {
 						panel3.add(new JPanel());
-						setsJPanel[i]=getSetJPanel(nbCouleurs);
-						panel3.add(setsJPanel[i]);
+						
+						JPanel p=new JPanel();
+						p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+						
+						JPanel couleur;
+						JPanel set=new JPanel();
+						set.setLayout(new BoxLayout(set, BoxLayout.Y_AXIS));
+						int c=0;
+						for(int j=0; j<10/2-nbCouleurs/2+nbCouleurs; j++) {
+							if(j<10/2-nbCouleurs/2) {
+								p.add(new JPanel());
+							} else {
+								couleur=new JPanel();
+								couleur.setBackground(listeCouleurs.get(i).get(c));
+								set.add(couleur);
+								c++;
+							}
+						}
+						p.add(set);
+						setsJPanel[i]=set;
+						for (int j=10/2-nbCouleurs/2+nbCouleurs; j<10 ; j++){
+							p.add(new JPanel());
+						}
+						panel3.add(p);
+					}
+					//ajout des listeners
+					for(int i=0; i<nbSets; i++) {
+						setsJPanel[i].addMouseListener(new SelectionSet(i, setsJPanel));
 					}
 					panel3.add(new JPanel());
 					fenetre.pack();
@@ -171,7 +197,7 @@ public class Accueil {
 		JPanel panel5=new JPanel();
 		panel5.setLayout(new FlowLayout(FlowLayout.CENTER));
 		panel5.add(new JLabel("Nombre de couleurs du set : "));
-		JComboBox comboBox2 = new JComboBox();
+		final JComboBox comboBox2 = new JComboBox();
 		comboBox2.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
 		comboBox2.setSelectedIndex(2);
 		comboBox2.addItemListener(new ItemListener() {
@@ -193,7 +219,6 @@ public class Accueil {
 		creer.add(panel4, BorderLayout.SOUTH);
 		creer.add(colorChooser);
 		
-		
 		fenetre.setContentPane(onglets);
 		fenetre.setVisible(true);
 		fenetre.pack();
@@ -205,7 +230,7 @@ public class Accueil {
 		
 		public SelectionSet(int i, JPanel[] sets){
 			this.i=i;
-			 this.sets=sets;
+			this.sets=sets;
 		}
 		public void mouseClicked(MouseEvent arg0) {
 			for(int n=0; n<sets.length; n++){
@@ -220,7 +245,7 @@ public class Accueil {
 		}
 		
 	}
-	
+
 	class ActionValider implements ActionListener {
 		Accueil a;
 		public ActionValider (Accueil a){
