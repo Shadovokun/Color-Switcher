@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 
 public class Accueil {
 	
@@ -32,6 +33,7 @@ public class Accueil {
 	static int nbSets=8;
 	JFrame fenetre;
 	ArrayList<Color> selection=new ArrayList<>();
+	ArrayList<Color> couleursAVerif=new ArrayList<>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -76,7 +78,7 @@ public class Accueil {
 		//Création de la fenetre
 		fenetre= new JFrame("COLOR SWITCHER");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setPreferredSize(new Dimension(600,450));
+		fenetre.setPreferredSize(new Dimension(620,450));
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setResizable(false);
 		
@@ -126,7 +128,7 @@ public class Accueil {
 				setsJPanel[i].addMouseListener(new SelectionSet(i, setsJPanel));
 			}			
 			panel3.add(new JPanel());
-		
+			
 			//haut
 			JLabel labelNbCouleurs = new JLabel("Nombre de couleurs / set : ");
 			panel1.add(labelNbCouleurs);
@@ -179,7 +181,7 @@ public class Accueil {
 			JPanel panel2=new JPanel();
 			JButton btnValider1 = new JButton("✓");
 			btnValider1.setFont(new Font("Dialog", Font.BOLD, 16));
-			btnValider1.addActionListener(new ActionValider(this));
+			btnValider1.addActionListener(new ActionValider1(this));
 			panel2.add(btnValider1);
 		
 		predef.add(panel1, BorderLayout.NORTH);
@@ -187,12 +189,12 @@ public class Accueil {
 		predef.add(panel3, BorderLayout.CENTER);
 		onglets.addTab("Prédéfinis", predef);
 			
+		
 		//Onglet2
 		JPanel creer=new JPanel();
 		creer.setLayout(new BorderLayout());
 		onglets.addTab("Créer", creer);
 		JColorChooser colorChooser = new JColorChooser();
-		
 		JPanel panel4=new JPanel();
 		panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
 		JPanel panel5=new JPanel();
@@ -205,24 +207,62 @@ public class Accueil {
 			public void itemStateChanged(ItemEvent e) {
 				nbCouleurs=Integer.parseInt((String) comboBox2.getSelectedItem());
 			}
-			
 		});
 		panel5.add(comboBox2);
 		JPanel panel6=new JPanel();
 		JButton btnValider2 = new JButton("✓");
 		btnValider2.setFont(new Font("Dialog", Font.BOLD, 16));
-		btnValider2.addActionListener(new ActionValider(this));
+		btnValider2.addActionListener(new ActionValider2(this));
 		panel6.add(btnValider2);
+		panel4.add(panel5);
+		panel4.add(panel6);
+		creer.add(panel4, BorderLayout.SOUTH);
+		creer.add(colorChooser);
+		
 		
 		//Onglet3
 		JPanel verifier=new JPanel();
 		onglets.addTab("Vérifier", verifier);
+		JColorChooser colorChooser2 = new JColorChooser();
+		verifier.setLayout(new BorderLayout());
+		verifier.add(colorChooser2);
+		JPanel panel7=new JPanel();
+		panel7.setLayout(new BoxLayout(panel7, BoxLayout.Y_AXIS));
+		JButton validCouleur=new JButton("✓   Valider couleur");
+		validCouleur.setFont(new Font("Dialog", Font.PLAIN, 16));
+		JPanel panel8= new JPanel();
+		panel8.add(validCouleur);
+		panel7.add(panel8);
+		//affichage des couleurs
+		JPanel panelCouleurs=new JPanel();
+		JPanel panelC;
+		panelC=new JPanel();
+		panelC.setPreferredSize(new Dimension(45,35));
+		panelCouleurs.add(panelC);
+		panel7.add(panelCouleurs);
+		validCouleur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(couleursAVerif.size()<10){
+					couleursAVerif.add(colorChooser2.getColor());
+					JPanel panelC;
+					panelCouleurs.removeAll();
+					for(int i=0; i<couleursAVerif.size(); i++) {
+						panelC=new JPanel();
+						//TODO Ajouter deselection d'une couleur
+						panelC.setPreferredSize(new Dimension(45,35));
+						panelC.setBackground(couleursAVerif.get(i));
+						panelCouleurs.add(panelC);
+					}
+					fenetre.pack();
+				}
+			}
+		});
+		JButton validSet=new JButton("✓   Valider set");
+		//TODO add listener pour envoyer sur la page des resultats de la verif (+ proposer un autre set?)
+		validSet.setFont(new Font("Dialog", Font.PLAIN, 16));
+		panel7.add(validSet);
+		verifier.add(panel7,BorderLayout.SOUTH);
 		
-		panel4.add(panel5);
-		panel4.add(panel6);
-		
-		creer.add(panel4, BorderLayout.SOUTH);
-		creer.add(colorChooser);
 		
 		fenetre.setContentPane(onglets);
 		fenetre.setVisible(true);
@@ -245,15 +285,13 @@ public class Accueil {
 			selection.clear();
 			for(int a=0; a<sets[pointeur].getComponentCount(); a++) {
 				selection.add(sets[pointeur].getComponent(a).getBackground());
-				System.out.println(sets[pointeur].getComponent(a).getBackground().toString());
 			}
-			System.out.println();
 		}
 	}
 
-	class ActionValider implements ActionListener {
+	class ActionValider1 implements ActionListener {
 		Accueil a;
-		public ActionValider (Accueil a){
+		public ActionValider1 (Accueil a){
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -261,6 +299,19 @@ public class Accueil {
 				AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a);
 				a.fenetre.dispose();
 			}
+		}
+	}
+	
+	class ActionValider2 implements ActionListener {
+		Accueil a;
+		public ActionValider2 (Accueil a){
+			this.a=a;
+		}
+		public void actionPerformed(ActionEvent e) {
+			//Generer un set et le mettre à la place de "selection" 
+			//AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a);
+			//a.fenetre.dispose();
+			System.out.println("Action du bouton non codée, nécessite l'algo :D");
 		}
 	}
 	
