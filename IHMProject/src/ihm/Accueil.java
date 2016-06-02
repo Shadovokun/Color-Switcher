@@ -208,6 +208,10 @@ public class Accueil {
 		});
 		panel5.add(comboBox2);
 		
+		//Onglet3
+		JPanel verifier=new JPanel();
+		onglets.addTab("Vérifier", verifier);
+		
 		JPanel panel6=new JPanel();
 		JButton btnValider2 = new JButton("✓");
 		btnValider2.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -225,23 +229,24 @@ public class Accueil {
 	}
 	
 	class SelectionSet extends MouseAdapter {
-		int i;
+		int pointeur;
 		JPanel[] sets;
 		
-		public SelectionSet(int i, JPanel[] sets){
-			this.i=i;
+		public SelectionSet(int pointeur, JPanel[] sets){
+			this.pointeur=pointeur;
 			this.sets=sets;
 		}
 		public void mouseClicked(MouseEvent arg0) {
 			for(int n=0; n<sets.length; n++){
 				sets[n].setBorder(BorderFactory.createEmptyBorder());
 			}
-			sets[i].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+			sets[pointeur].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 			selection.clear();
-			for(int i=0; i<sets[i].getComponentCount(); i++) {
-				selection.add(sets[i].getComponent(i).getBackground());
-				System.out.println(sets[i].getComponent(i).getBackground().toString());
+			for(int a=0; a<sets[pointeur].getComponentCount(); a++) {
+				selection.add(sets[pointeur].getComponent(a).getBackground());
+				System.out.println(sets[pointeur].getComponent(a).getBackground().toString());
 			}
+			System.out.println();
 		}
 		
 	}
