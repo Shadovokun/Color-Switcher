@@ -9,15 +9,19 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -25,6 +29,8 @@ import javax.swing.border.TitledBorder;
 public class AffichageCouleurs extends JFrame {
 
 	private JPanel contentPane;
+	JPanel stats=new JPanel();
+	JPanel panel=new JPanel();
 	private Clipboard clipbd =	getToolkit().getSystemClipboard();
 	int pointeur=0; //couleur affichée: la première du set
 
@@ -67,23 +73,31 @@ public class AffichageCouleurs extends JFrame {
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
 		//affichage des couleurs
-		JPanel panel = new JPanel();
 		JPanel panelC=new JPanel();
+		JPanel[] panelsCouleurs=new JPanel[couleurs.size()];
 			for(int i=0; i<couleurs.size(); i++) {
 				panelC=new JPanel();
-				panelC.setPreferredSize(new Dimension(30,20));
+				panelC.setPreferredSize(new Dimension(35,25));
 				panelC.setBackground(couleurs.get(i));
+				panelsCouleurs[i]=panelC;
 				panel.add(panelC);
 			}
+			//ajout des listeners
+			for(int i=0; i<panelsCouleurs.length; i++) {
+				panelsCouleurs[i].addMouseListener(new SelectionCouleur(i, panelsCouleurs));
+			}
 		contentPane.add(panel);
-		
-
-		int r=panel.getComponent(pointeur).getBackground().getRed();
-		int g=panel.getComponent(pointeur).getBackground().getGreen();
-		int b=panel.getComponent(pointeur).getBackground().getBlue();
+		stats.add(StatsCouleur(panel));
+		contentPane.add(stats);
+		pack();
+	}
+	
+	public JPanel StatsCouleur(JPanel couleurs){
+		int r=couleurs.getComponent(pointeur).getBackground().getRed();
+		int g=couleurs.getComponent(pointeur).getBackground().getGreen();
+		int b=couleurs.getComponent(pointeur).getBackground().getBlue();
 		
 		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1);
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
 		JPanel panel_2 = new JPanel();
@@ -243,6 +257,8 @@ public class AffichageCouleurs extends JFrame {
 		JButton btnCopierValeur = new JButton("Copier");
 		btnCopierValeur.addActionListener(new Copy(lblNbvaleur));
 		panel_24.add(btnCopierValeur);
+		
+		return panel_1;
 	}
 
 	class Copy implements ActionListener {
@@ -256,5 +272,25 @@ public class AffichageCouleurs extends JFrame {
 			StringSelection clipString = new StringSelection(selection);
 			clipbd.setContents(clipString,clipString);
 		}
-}
+	}
+	
+	class SelectionCouleur extends MouseAdapter {
+		int i;
+		JPanel[] couleurs;
+		
+		public SelectionCouleur(int i, JPanel[] couleurs){
+			this.i=i;
+			this.couleurs=couleurs;
+		}
+		public void mouseClicked(MouseEvent arg0) {
+			pointeur=i;
+			for(int n=0; n<couleurs.length; n++){
+				couleurs[n].setBorder(BorderFactory.createEmptyBorder());
+			}
+			couleurs[i].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+			stats.removeAll();
+			stats.add(StatsCouleur(panel));
+			pack();
+		}
+	}
 }

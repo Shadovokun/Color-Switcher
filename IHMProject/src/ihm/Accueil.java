@@ -248,7 +248,6 @@ public class Accueil {
 			}
 			System.out.println();
 		}
-		
 	}
 
 	class ActionValider implements ActionListener {
