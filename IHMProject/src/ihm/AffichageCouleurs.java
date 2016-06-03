@@ -245,6 +245,7 @@ public class AffichageCouleurs {
 		
 		JPanel panel_19 = new JPanel();
 		panel_16.add(panel_19);
+		panel_19.setLayout(new BoxLayout(panel_19, BoxLayout.X_AXIS));
 		
 		
 		//trouver comment modifer les valeurs TSV
@@ -267,6 +268,7 @@ public class AffichageCouleurs {
 		
 		JPanel panel_21 = new JPanel();
 		panel_17.add(panel_21);
+		panel_21.setLayout(new BoxLayout(panel_21, BoxLayout.X_AXIS));
 		
 		JLabel lblSaturation = new JLabel("Saturation : ");
 		panel_21.add(lblSaturation);
@@ -287,8 +289,9 @@ public class AffichageCouleurs {
 		
 		JPanel panel_23 = new JPanel();
 		panel_18.add(panel_23);
+		panel_23.setLayout(new BoxLayout(panel_23, BoxLayout.X_AXIS));
 		
-		JLabel lblValeur = new JLabel("Valeur");
+		JLabel lblValeur = new JLabel("Valeur : ");
 		panel_23.add(lblValeur);
 		
 		JLabel lblNbvaleur = new JLabel(""+v);
