@@ -76,7 +76,7 @@ public class Accueil {
 		});
 	}
 
-	public Accueil(final ArrayList<ArrayList<Color>> listeCouleurs) {
+	public Accueil(ArrayList<ArrayList<Color>> listeCouleurs) {
 		//Création de la fenetre
 		fenetre= new JFrame("COLOR SWITCHER");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,9 +105,9 @@ public class Accueil {
 		panel1.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 			//milieu
-			final JPanel panel3=new JPanel();
+			JPanel panel3=new JPanel();
 			panel3.setLayout(new BoxLayout(panel3, BoxLayout.X_AXIS));
-			final JPanel[] setsJPanel=new JPanel[nbSets];
+			JPanel[] setsJPanel=new JPanel[nbSets];
 			for(int i=0; i<nbSets; i++) {
 				panel3.add(new JPanel());
 				
@@ -144,7 +144,7 @@ public class Accueil {
 			//haut
 			JLabel labelNbCouleurs = new JLabel("Nombre de couleurs / set : ");
 			panel1.add(labelNbCouleurs);
-			final JComboBox comboBox = new JComboBox();
+			JComboBox comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
 			comboBox.setSelectedIndex(2);
 			comboBox.addItemListener(new ItemListener() {
@@ -214,7 +214,7 @@ public class Accueil {
 		JLabel labelNbSet = new JLabel("Nombre de couleurs du set : ");
 		labelNbSet.setFont(new Font("Dialog", Font.BOLD, 16));
 		panel5.add(labelNbSet);
-		final JComboBox comboBox2 = new JComboBox();
+		JComboBox comboBox2 = new JComboBox();
 		comboBox2.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
 		comboBox2.setSelectedIndex(2);
 		comboBox2.addItemListener(new ItemListener() {
