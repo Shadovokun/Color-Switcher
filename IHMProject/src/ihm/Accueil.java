@@ -242,10 +242,16 @@ public class Accueil {
 		verifier.add(colorChooser2);
 		JPanel panel7=new JPanel();
 		panel7.setLayout(new BoxLayout(panel7, BoxLayout.Y_AXIS));
-		JButton validCouleur=new JButton("✓   Valider couleur");
-		validCouleur.setFont(new Font("Dialog", Font.PLAIN, 16));
+		JButton validCouleur=new JButton("✓");
+		JButton suppCouleur=new JButton("✖ ");
+		//TODO add listener pour supprimer une couleur
+		JButton validSet=new JButton("✓   Valider set");
+		suppCouleur.setFont(new Font("Dialog", Font.PLAIN, 16));
+		validCouleur.setFont(new Font("Dialog", Font.BOLD, 16));
 		JPanel panel8= new JPanel();
+		panel8.setLayout(new FlowLayout(FlowLayout.CENTER));
 		panel8.add(validCouleur);
+		panel8.add(suppCouleur);
 		panel7.add(panel8);
 		//affichage des couleurs
 		JPanel panelCouleurs=new JPanel();
@@ -269,12 +275,18 @@ public class Accueil {
 					}
 					fenetre.pack();
 				}
+				if(couleursAVerif.size()>=3){
+					validSet.setEnabled(true);
+				}
 			}
 		});
-		JButton validSet=new JButton("✓   Valider set");
+		validSet.setEnabled(false);
 		//TODO add listener pour envoyer sur la page des resultats de la verif (+ proposer un autre set?)
 		validSet.setFont(new Font("Dialog", Font.PLAIN, 16));
-		panel7.add(validSet);
+		JPanel panel9=new JPanel();
+		panel9.setLayout(new FlowLayout(FlowLayout.CENTER));
+		panel9.add(validSet);
+		panel7.add(panel9);
 		verifier.add(panel7,BorderLayout.SOUTH);
 		
 		
