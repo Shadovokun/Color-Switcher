@@ -68,7 +68,7 @@ public class Accueil {
 					for(int a=1; a<nbSets; a++) {
 						listeCouleurs.add(couleurs);
 					}
-					Accueil frame = new Accueil(listeCouleurs);
+					new Accueil(listeCouleurs);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -100,9 +100,9 @@ public class Accueil {
 		//Onglet1
 		JPanel predef=new JPanel();
 		predef.setLayout(new BorderLayout());
-		JLabel titrePredef=new JLabel("Prédéfinis");
 		JPanel panel1=new JPanel();
 		panel1.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JButton btnValider1 = new JButton("✓");
 
 			//milieu
 			JPanel panel3=new JPanel();
@@ -137,7 +137,7 @@ public class Accueil {
 			}
 			//ajout des listeners
 			for(int i=0; i<nbSets; i++) {
-				setsJPanel[i].addMouseListener(new SelectionSet(i, setsJPanel));
+				setsJPanel[i].addMouseListener(new SelectionSet(i, setsJPanel, btnValider1));
 			}			
 			panel3.add(new JPanel());
 			
@@ -180,7 +180,7 @@ public class Accueil {
 					}
 					//ajout des listeners
 					for(int i=0; i<nbSets; i++) {
-						setsJPanel[i].addMouseListener(new SelectionSet(i, setsJPanel));
+						setsJPanel[i].addMouseListener(new SelectionSet(i, setsJPanel, btnValider1));
 					}
 					panel3.add(new JPanel());
 					fenetre.pack();
@@ -191,8 +191,8 @@ public class Accueil {
 			
 			//bas
 			JPanel panel2=new JPanel();
-			JButton btnValider1 = new JButton("✓");
 			btnValider1.setFont(new Font("Dialog", Font.BOLD, 16));
+			btnValider1.setEnabled(false);
 			btnValider1.addActionListener(new ActionValider1(this));
 			panel2.add(btnValider1);
 		
@@ -286,12 +286,15 @@ public class Accueil {
 	class SelectionSet extends MouseAdapter {
 		int pointeur;
 		JPanel[] sets;
+		JButton v;
 		
-		public SelectionSet(int pointeur, JPanel[] sets){
+		public SelectionSet(int pointeur, JPanel[] sets, JButton v){
 			this.pointeur=pointeur;
 			this.sets=sets;
+			this.v=v;
 		}
 		public void mouseClicked(MouseEvent arg0) {
+			v.setEnabled(true);
 			for(int n=0; n<sets.length; n++){
 				sets[n].setBorder(BorderFactory.createEmptyBorder());
 			}
@@ -310,7 +313,7 @@ public class Accueil {
 		}
 		public void actionPerformed(ActionEvent e) {
 			if(selection.size()!=0){
-				AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a, x, y);
+				new AffichageCouleurs(selection, a, x, y);
 				a.fenetre.dispose();
 			}
 		}

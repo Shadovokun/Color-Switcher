@@ -72,10 +72,12 @@ public class AffichageCouleurs {
 	 * Create the frame.
 	 */
 	public AffichageCouleurs(ArrayList<Color> couleurs, Accueil accueil, int posX, int posY) {
+		x=posX;
+		y=posY;
 		this.accueil=accueil;
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setPreferredSize(new Dimension(600,450));
-		fenetre.setLocation(posX, posY);
+		fenetre.setLocation(x, y);
 		fenetre.setResizable(false);
 		fenetre.addComponentListener(new ComponentListener() {
 			public void componentHidden(ComponentEvent arg0) {}
