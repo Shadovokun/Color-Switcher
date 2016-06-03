@@ -14,6 +14,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -243,8 +244,8 @@ public class Accueil {
 		JPanel panel7=new JPanel();
 		panel7.setLayout(new BoxLayout(panel7, BoxLayout.Y_AXIS));
 		JButton validCouleur=new JButton("✓");
-		JButton suppCouleur=new JButton("✖ ");
-		//TODO add listener pour supprimer une couleur
+		JButton suppCouleur=new JButton("✖");
+		suppCouleur.setEnabled(false);
 		JButton validSet=new JButton("✓   Valider set");
 		suppCouleur.setFont(new Font("Dialog", Font.PLAIN, 16));
 		validCouleur.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -253,33 +254,25 @@ public class Accueil {
 		panel8.add(validCouleur);
 		panel8.add(suppCouleur);
 		panel7.add(panel8);
-		//affichage des couleurs
 		JPanel panelCouleurs=new JPanel();
 		JPanel panelC;
 		panelC=new JPanel();
 		panelC.setPreferredSize(new Dimension(45,35));
 		panelCouleurs.add(panelC);
 		panel7.add(panelCouleurs);
+		/*
 		validCouleur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(couleursAVerif.size()<10){
 					couleursAVerif.add(colorChooser2.getColor());
-					JPanel panelC;
-					panelCouleurs.removeAll();
-					for(int i=0; i<couleursAVerif.size(); i++) {
-						panelC=new JPanel();
-						//TODO Ajouter deselection d'une couleur
-						panelC.setPreferredSize(new Dimension(45,35));
-						panelC.setBackground(couleursAVerif.get(i));
-						panelCouleurs.add(panelC);
-					}
+					panelCouleurs=affichageCouleursVerif(suppCouleur);
 					fenetre.pack();
 				}
 				if(couleursAVerif.size()>=3){
-					validSet.setEnabled(true);
+					validCouleur.setEnabled(true);
 				}
 			}
-		});
+		});*/
 		validSet.setEnabled(false);
 		//TODO add listener pour envoyer sur la page des resultats de la verif (+ proposer un autre set?)
 		validSet.setFont(new Font("Dialog", Font.PLAIN, 16));
@@ -293,6 +286,22 @@ public class Accueil {
 		fenetre.setContentPane(onglets);
 		fenetre.setVisible(true);
 		fenetre.pack();
+	}
+	
+	public JPanel affichageCouleursVerif(JButton suppCouleur) {
+		JPanel panelCouleurs=new JPanel();
+		JPanel panelC;
+		JPanel[] tabPanelC=new JPanel[couleursAVerif.size()];
+		panelCouleurs.removeAll();
+		for(int i=0; i<couleursAVerif.size(); i++) {
+			panelC=new JPanel();
+			panelC.setPreferredSize(new Dimension(45,35));
+			panelC.setBackground(couleursAVerif.get(i));
+			tabPanelC[i]=panelC;
+			panelC.addMouseListener(new SelectionCouleur(i, tabPanelC, suppCouleur));
+			panelCouleurs.add(panelC);
+		}
+		return panelCouleurs;
 	}
 	
 	class SelectionSet extends MouseAdapter {
@@ -315,6 +324,33 @@ public class Accueil {
 			for(int a=0; a<sets[pointeur].getComponentCount(); a++) {
 				selection.add(sets[pointeur].getComponent(a).getBackground());
 			}
+		}
+	}
+	
+	class SelectionCouleur extends MouseAdapter {
+		int i;
+		JPanel[] tabPanelC;
+		JButton supp;
+		
+		public SelectionCouleur(int i, JPanel[] tabPanelC, JButton supp){
+			this.i=i;
+			this.tabPanelC=tabPanelC;
+			this.supp=supp;
+		}
+		public void mouseClicked(MouseEvent arg0) {
+			for(int n=0; n<tabPanelC.length; n++){
+				tabPanelC[n].setBorder(BorderFactory.createEmptyBorder());
+			}
+			tabPanelC[i].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+			supp.setEnabled(true);
+			supp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					//TODO add listener pour supprimer une couleur
+					couleursAVerif.remove(i);
+					fenetre.pack();
+				}
+			});
+			fenetre.pack();
 		}
 	}
 
