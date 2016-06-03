@@ -11,6 +11,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -37,6 +39,7 @@ public class AffichageCouleurs {
 	JFrame fenetre=new JFrame("COLOR SWITCHER");
 	Clipboard clipbd =	fenetre.getToolkit().getSystemClipboard();
 	int pointeur=0; //couleur affichée: la première du set
+	int x, y;
 	
 
 	/**
@@ -57,7 +60,7 @@ public class AffichageCouleurs {
 					couleurs.add(Color.CYAN);
 					couleurs.add(Color.MAGENTA);
 					couleurs.add(Color.RED);
-					AffichageCouleurs frame = new AffichageCouleurs(couleurs, null);
+					AffichageCouleurs frame = new AffichageCouleurs(couleurs, null, 400, 200);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -68,12 +71,21 @@ public class AffichageCouleurs {
 	/**
 	 * Create the frame.
 	 */
-	public AffichageCouleurs(ArrayList<Color> couleurs, Accueil accueil) {
+	public AffichageCouleurs(ArrayList<Color> couleurs, Accueil accueil, int posX, int posY) {
 		this.accueil=accueil;
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setPreferredSize(new Dimension(600,450));
-		fenetre.setLocationRelativeTo(null);
+		fenetre.setLocation(posX, posY);
 		fenetre.setResizable(false);
+		fenetre.addComponentListener(new ComponentListener() {
+			public void componentHidden(ComponentEvent arg0) {}
+			public void componentMoved(ComponentEvent arg0) {
+				x=(int)(fenetre.getLocation().getX());
+				y=(int)(fenetre.getLocation().getY());
+			}
+			public void componentResized(ComponentEvent arg0) {}
+			public void componentShown(ComponentEvent arg0) {}
+		});
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,6 +99,9 @@ public class AffichageCouleurs {
 				panelC=new JPanel();
 				panelC.setPreferredSize(new Dimension(45,35));
 				panelC.setBackground(couleurs.get(i));
+				if(i==0){
+					panelC.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+				}
 				panelsCouleurs[i]=panelC;
 				panel.add(panelC);
 			}
@@ -118,6 +133,12 @@ public class AffichageCouleurs {
 		int r=couleurs.getComponent(pointeur).getBackground().getRed();
 		int g=couleurs.getComponent(pointeur).getBackground().getGreen();
 		int b=couleurs.getComponent(pointeur).getBackground().getBlue();
+		
+		float[] tsv=new float[3];
+		Color.RGBtoHSB(r, g, b, tsv);
+		int t=(int)(360*tsv[0]);
+		int s=(int)(100*tsv[1]);
+		int v=(int)(100*tsv[2]);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
@@ -230,7 +251,7 @@ public class AffichageCouleurs {
 		JLabel lblTeinte = new JLabel("Teinte : ");
 		panel_19.add(lblTeinte);
 		
-		JLabel lblNbteinte = new JLabel("0");
+		JLabel lblNbteinte = new JLabel(""+t);
 		panel_19.add(lblNbteinte);
 		
 		JPanel panel_20 = new JPanel();
@@ -250,7 +271,7 @@ public class AffichageCouleurs {
 		JLabel lblSaturation = new JLabel("Saturation : ");
 		panel_21.add(lblSaturation);
 		
-		JLabel lblNbsaturation = new JLabel("0");
+		JLabel lblNbsaturation = new JLabel(""+s);
 		panel_21.add(lblNbsaturation);
 		
 		JPanel panel_22 = new JPanel();
@@ -270,7 +291,7 @@ public class AffichageCouleurs {
 		JLabel lblValeur = new JLabel("Valeur");
 		panel_23.add(lblValeur);
 		
-		JLabel lblNbvaleur = new JLabel("0");
+		JLabel lblNbvaleur = new JLabel(""+v);
 		panel_23.add(lblNbvaleur);
 		
 		JPanel panel_24 = new JPanel();
@@ -323,6 +344,7 @@ public class AffichageCouleurs {
 		}
 		public void mouseClicked(MouseEvent e) {
 			affichage.fenetre.dispose();
+			accueil.fenetre.setLocation(x,y);
 			accueil.fenetre.setVisible(true);
 		}
 		public void mousePressed(MouseEvent e) { }

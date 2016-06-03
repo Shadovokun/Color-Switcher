@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -25,7 +27,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 
 public class Accueil {
 	
@@ -34,6 +35,7 @@ public class Accueil {
 	JFrame fenetre;
 	ArrayList<Color> selection=new ArrayList<>();
 	ArrayList<Color> couleursAVerif=new ArrayList<>();
+	int x, y;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -79,9 +81,19 @@ public class Accueil {
 		fenetre= new JFrame("COLOR SWITCHER");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setPreferredSize(new Dimension(620,450));
-		fenetre.setLocationRelativeTo(null);
+		fenetre.setLocation(400,200);
+		x=(int)(fenetre.getLocation().getX());
+		y=(int)(fenetre.getLocation().getY());
 		fenetre.setResizable(false);
-		
+		fenetre.addComponentListener(new ComponentListener() {
+			public void componentHidden(ComponentEvent arg0) {}
+			public void componentMoved(ComponentEvent arg0) {
+				x=(int)(fenetre.getLocation().getX());
+				y=(int)(fenetre.getLocation().getY());
+			}
+			public void componentResized(ComponentEvent arg0) {}
+			public void componentShown(ComponentEvent arg0) {}
+		});
 		//Création onglets
 		JTabbedPane onglets=new JTabbedPane(JTabbedPane.TOP);
 		
@@ -199,7 +211,9 @@ public class Accueil {
 		panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
 		JPanel panel5=new JPanel();
 		panel5.setLayout(new FlowLayout(FlowLayout.CENTER));
-		panel5.add(new JLabel("Nombre de couleurs du set : "));
+		JLabel labelNbSet = new JLabel("Nombre de couleurs du set : ");
+		labelNbSet.setFont(new Font("Dialog", Font.BOLD, 16));
+		panel5.add(labelNbSet);
 		final JComboBox comboBox2 = new JComboBox();
 		comboBox2.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
 		comboBox2.setSelectedIndex(2);
@@ -296,7 +310,7 @@ public class Accueil {
 		}
 		public void actionPerformed(ActionEvent e) {
 			if(selection.size()!=0){
-				AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a);
+				AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a, x, y);
 				a.fenetre.dispose();
 			}
 		}
