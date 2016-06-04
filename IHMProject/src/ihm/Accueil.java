@@ -288,19 +288,25 @@ public class Accueil {
 	}
 	
 	public JPanel affichageCouleursVerif() {
-		JPanel panelCouleurs=new JPanel();
-		JPanel panelC;
-		JPanel[] tabPanelC=new JPanel[couleursAVerif.size()];
-		panelCouleurs.removeAll();
-		for(int i=0; i<couleursAVerif.size(); i++) {
-			panelC=new JPanel();
-			panelC.setPreferredSize(new Dimension(45,35));
-			panelC.setBackground(couleursAVerif.get(i));
-			tabPanelC[i]=panelC;
-			panelC.addMouseListener(new SelectionCouleur(i, tabPanelC));
-			panelCouleurs.add(panelC);
+		if(couleursAVerif.size()==0){
+			JPanel c=new JPanel();
+			c.setPreferredSize(new Dimension (450,45));
+			return c;
+		} else {
+			JPanel panelCouleurs=new JPanel();
+			JPanel panelC;
+			JPanel[] tabPanelC=new JPanel[couleursAVerif.size()];
+			panelCouleurs.removeAll();
+			for(int i=0; i<couleursAVerif.size(); i++) {
+				panelC=new JPanel();
+				panelC.setPreferredSize(new Dimension(45,35));
+				panelC.setBackground(couleursAVerif.get(i));
+				tabPanelC[i]=panelC;
+				panelC.addMouseListener(new SelectionCouleur(i, tabPanelC));
+				panelCouleurs.add(panelC);
+			}
+			return panelCouleurs;
 		}
-		return panelCouleurs;
 	}
 	
 	class ValiderCouleur implements ActionListener {
@@ -311,9 +317,11 @@ public class Accueil {
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			couleursAVerif.add(colorChooser.getColor());
-			panelCouleurs.removeAll();
-			panelCouleurs.add(affichageCouleursVerif());
+			if(couleursAVerif.size()<10){
+				couleursAVerif.add(colorChooser.getColor());
+				panelCouleurs.removeAll();
+				panelCouleurs.add(affichageCouleursVerif());
+			}
 			if(couleursAVerif.size()>=3) {
 				validSet.setEnabled(true);
 			}
@@ -367,7 +375,13 @@ public class Accueil {
 		public void actionPerformed(ActionEvent arg0) {
 			couleursAVerif.remove(couleurSelectionnee);
 			panelCouleurs.removeAll();
+			JPanel affichageVide=new JPanel();
+			affichageVide.setPreferredSize(new Dimension(450,35));
+			panelCouleurs.add(affichageVide);
+			fenetre.pack();
+			panelCouleurs.removeAll();
 			panelCouleurs.add(affichageCouleursVerif());
+			suppCouleur.setEnabled(false);
 			fenetre.pack();
 		}
 	}
