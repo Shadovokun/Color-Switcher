@@ -275,7 +275,7 @@ public class Accueil {
 		validCouleur.addActionListener(new ValiderCouleur(colorChooser2));
 		suppCouleur.addActionListener(new SupprimerCouleur());
 		validSet.setEnabled(false);
-		validSet.addActionListener(new ActionValider3());
+		validSet.addActionListener(new ActionValider3(this));
 		validSet.setFont(new Font("Dialog", Font.PLAIN, 16));
 		JPanel panel9=new JPanel();
 		panel9.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -412,12 +412,17 @@ public class Accueil {
 			//System.out.println("Action du bouton non codée, nécessite l'algo :D");
 			ColorSetCreator csc = new ColorSetCreator(colorChooser.getColor(), nbCouleurs);
 			a.fenetre.dispose();
-			AffichageCouleurs ac = new AffichageCouleurs(csc.getSelectionCouleurs(), a, x, y);
+			new AffichageCouleurs(csc.getSelectionCouleurs(), a, x, y);
 		}
 	}
 	
 	class ActionValider3 implements ActionListener {
+		Accueil a;
 		String message = "";
+		
+		public ActionValider3(Accueil a) {
+			this.a=a;
+		}
 		
 		public void actionPerformed(ActionEvent e) {
 			/*for (int i = 0; i < couleursAVerif.size(); i++) {
@@ -446,11 +451,12 @@ public class Accueil {
 				}
 			}
 			if (message.equals("")) {
-				message += "Votre set peut être utilisé pour une impression noir et blanc !";
+				a.fenetre.dispose();
+				new AffichageCouleurs(couleursAVerif, a, x, y);
 			} else {
 				message += "Vous pouvez créer un set à partir d'une des couleurs utilisées en la saisissant dans l'onglet \"Créer\".";
+				JOptionPane.showMessageDialog(null, message);
 			}
-			JOptionPane.showMessageDialog(null, message);
 			message = "";
 		}
 	}
