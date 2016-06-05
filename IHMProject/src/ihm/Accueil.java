@@ -420,7 +420,7 @@ public class Accueil {
 		String message = "";
 		
 		public void actionPerformed(ActionEvent e) {
-			for (int i = 0; i < couleursAVerif.size(); i++) {
+			/*for (int i = 0; i < couleursAVerif.size(); i++) {
 				for (int j = 0; j < couleursAVerif.size(); j++) {
 					if (i != j && i < j) {
 						 int gris1 = (int) (couleursAVerif.get(i).getRed() * 0.3 + couleursAVerif.get(i).getGreen() * 0.59 + couleursAVerif.get(i).getBlue() * 0.11);
@@ -430,6 +430,18 @@ public class Accueil {
 								 message += "Les couleurs " + i + " et " + j + " ont un niveau de gris trop semblable. \n";
 							 }
 						 }
+					}
+				}
+			}*/
+			for (int i = 0; i < couleursAVerif.size()-1; i++) {
+				for (int j = i+1; j < couleursAVerif.size(); j++) {
+					int gris1 = (int) (couleursAVerif.get(i).getRed() * 0.3 + couleursAVerif.get(i).getGreen() * 0.59 + couleursAVerif.get(i).getBlue() * 0.11);
+					int gris2 = (int) (couleursAVerif.get(j).getRed() * 0.3 + couleursAVerif.get(j).getGreen() * 0.59 + couleursAVerif.get(j).getBlue() * 0.11);
+					//20 car 255/10=25.5
+					//10=nbCouleurs max
+					//20 car petite marge pour ne pas avoir qu'1 seul set de 10 couleurs possible.
+					if(gris1<=gris2+20 && gris1>=gris2-20){
+						message += "Les couleurs " + i + " et " + j + " ont un niveau de gris trop semblable. \n";
 					}
 				}
 			}
