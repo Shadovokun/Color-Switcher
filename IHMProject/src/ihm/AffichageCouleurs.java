@@ -243,14 +243,29 @@ public class AffichageCouleurs {
 		panel_15.add(btnCopierHexa);
 		
 		JPanel panel_26 = new JPanel();
+		panel_26.setLayout(new BoxLayout(panel_26, BoxLayout.Y_AXIS));
 		panel_26.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Niveau de gris", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_25.add(panel_26);
 		
 		Component verticalGlue_1 = Box.createVerticalGlue();
 		panel_26.add(verticalGlue_1);
 		
+		JPanel p1 =new JPanel();
+		p1.setLayout(new FlowLayout(FlowLayout.CENTER));
 		JLabel lblNvgris = new JLabel(""+nvGris);
-		panel_26.add(lblNvgris);
+		p1.add(lblNvgris);
+		panel_26.add(p1);
+		
+		JPanel p2 =new JPanel();
+		p2.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JPanel c=new JPanel();
+		c.setPreferredSize(new Dimension(45,35));
+		c.setBackground(new Color(nvGris,nvGris, nvGris));
+		p2.add(c);
+		panel_26.add(p2);
+		
+		Component verticalGlue_2 = Box.createVerticalGlue();
+		panel_26.add(verticalGlue_2);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "TSV", TitledBorder.CENTER, TitledBorder.TOP, null, null));
