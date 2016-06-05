@@ -70,19 +70,78 @@ public class testNiveauGris {
 				boutonsColores[i].setBackground(new Color(valeursRouge[i], valeursVert[i], valeursBleu[i]));
 				conteneurCouleurs.add(boutonsColores[i]);
 			}
-			fenetre.getContentPane().add(conteneurCouleurs);
-			fenetre.setVisible(true);
-			fenetre.pack();
 		}
+		fenetre.getContentPane().add(conteneurCouleurs);
+		fenetre.setVisible(true);
+		fenetre.pack();
 		//text.close();
 	}
 	
 	testNiveauGris(int r, int v, int b){
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setPreferredSize(new Dimension(650,500));
+		fenetre.setLocation(400,200);
+		conteneurCouleurs.setLayout(new BoxLayout(conteneurCouleurs, BoxLayout.X_AXIS));
+		valeursRouge[0] = r;
+		valeursVert[0] = v;
+		valeursBleu[0] = b;
+		valeurs[0] = (int) (r * 0.3 + v * 0.59 + b * 0.11);
+		System.out.println("R : " + valeursRouge[0] + " V : " + valeursVert[0] + " B : " + valeursBleu[0] + " Gris : " + valeurs[0]);
+		boutonsColores[0] = new JButton();
+		boutonsColores[0].setBackground(new Color(valeursRouge[0], valeursVert[0], valeursBleu[0]));
+		conteneurCouleurs.add(boutonsColores[0]);
+		nbColor = Integer.parseInt(JOptionPane.showInputDialog(null, "Entrez un nombre entre 3 et 10"));
 		
+		for (int i = 1; i < 10; i++) {
+			if (valeurs[0] - ( ( ( (255/nbColor) *i) *100) /100) < 0) {
+				valeurs[i] = valeurs[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) > 255) {
+					valeursRouge[i] = 255;
+				} else {
+					valeursRouge[i] = valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				}
+				if (valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100) > 255) {
+					valeursVert[i] = 255;
+				} else {
+					valeursVert[i] = valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				}
+				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) > 255) {
+					valeursBleu[i] = 255;
+				} else {
+					valeursBleu[i] = valeursBleu[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				}
+			} else {
+				valeurs[i] = valeurs[0] - ( ( ( (255/nbColor) *i) *100) /100);
+				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) < 0) {
+					valeursRouge[i] = 0;
+				} else {
+					valeursRouge[i] = valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				}
+				if (valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100) < 0) {
+					valeursVert[i] = 0;
+				} else {
+					valeursVert[i] = valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				}
+				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) < 0) {
+					valeursBleu[i] = 0;
+				} else {
+					valeursBleu[i] = valeursBleu[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				}
+			}
+			if (valeurs[i] <= 255) {
+				System.out.println("R : " + valeursRouge[i] + " V : " + valeursVert[i] + " B : " + valeursBleu[i] + " Gris : " + valeurs[i]);
+				boutonsColores[i] = new JButton();
+				boutonsColores[i].setBackground(new Color(valeursRouge[i], valeursVert[i], valeursBleu[i]));
+				conteneurCouleurs.add(boutonsColores[i]);
+			}
+		}
+		fenetre.getContentPane().add(conteneurCouleurs);
+		fenetre.setVisible(true);
+		fenetre.pack();		
 	}
 	
 	public static void main(String args[]) {
-		testNiveauGris test = new testNiveauGris();
+		testNiveauGris test = new testNiveauGris(24,12,24);
 	}
 	
 }
