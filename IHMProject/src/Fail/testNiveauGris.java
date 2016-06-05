@@ -93,47 +93,49 @@ public class testNiveauGris {
 		nbColor = Integer.parseInt(JOptionPane.showInputDialog(null, "Entrez un nombre entre 3 et 10"));
 		
 		for (int i = 1; i < 10; i++) {
-			if (valeurs[0] - ( ( ( (255/nbColor) *i) *100) /100) < 0) {
-				valeurs[i] = valeurs[0] + ( ( ( (255/nbColor) *i) *100) /100);
-				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) > 255) {
-					valeursRouge[i] = 255;
-				} else {
+			//CAS 1 : INFERIEUR A 0
+			//CAS 2 : SUPERIEUR A 255
+			//CAS 3 : ENTRE 0 ET 255
+			//CAS 3a : On peut soustraire
+			//CAS 3b : On peut additionner
+			
+			if (valeurs[0] + ( ( ( (255/nbColor) *i) *100) /100) <255 || valeurs [0] - ( ( ( (255/nbColor) *i) *100) /100) > 0) {
+				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) < 255) {
 					valeursRouge[i] = valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				} else if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) > 0) {
+					valeursRouge[i] = valeursRouge[0] - ( ( ( (255/nbColor) *i) *100) /100);
 				}
-				if (valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100) > 255) {
-					valeursVert[i] = 255;
-				} else {
+				
+				if (valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100) < 255) {
 					valeursVert[i] = valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				} else if (valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100) > 0) {
+					valeursVert[i] = valeursVert[0] - ( ( ( (255/nbColor) *i) *100) /100);
 				}
-				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) > 255) {
-					valeursBleu[i] = 255;
-				} else {
+				
+				if (valeursBleu[0] + ( ( ( (255/nbColor) *i) *100) /100) < 255) {
 					valeursBleu[i] = valeursBleu[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				} else if (valeursBleu[0] + ( ( ( (255/nbColor) *i) *100) /100) > 0) {
+					valeursBleu[i] = valeursBleu[0] - ( ( ( (255/nbColor) *i) *100) /100);
 				}
+				
+				valeurs[i] = (int) (valeursRouge[i] * 0.3 + valeursVert[i] * 0.59 + valeursBleu[i] * 0.11);
+			} else if (valeurs[0] - ( ( ( (255/nbColor) *i) *100) /100) < 0) {
+				valeurs[i] = 0;
+				valeursRouge[i] = 0;
+				valeursVert[i] = 0;
+				valeursBleu[i] = 0;
 			} else {
-				valeurs[i] = valeurs[0] - ( ( ( (255/nbColor) *i) *100) /100);
-				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) < 0) {
-					valeursRouge[i] = 0;
-				} else {
-					valeursRouge[i] = valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100);
+				valeurs[i] = 255;
+				valeursRouge[i] = 255;
+				valeursVert[i] = 255;
+				valeursBleu[i] = 255;
+			}	
+				if (i < nbColor) {
+					System.out.println("R : " + valeursRouge[i] + " V : " + valeursVert[i] + " B : " + valeursBleu[i] + " Gris : " + valeurs[i]);
+					boutonsColores[i] = new JButton();
+					boutonsColores[i].setBackground(new Color(valeursRouge[i], valeursVert[i], valeursBleu[i]));
+					conteneurCouleurs.add(boutonsColores[i]);
 				}
-				if (valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100) < 0) {
-					valeursVert[i] = 0;
-				} else {
-					valeursVert[i] = valeursVert[0] + ( ( ( (255/nbColor) *i) *100) /100);
-				}
-				if (valeursRouge[0] + ( ( ( (255/nbColor) *i) *100) /100) < 0) {
-					valeursBleu[i] = 0;
-				} else {
-					valeursBleu[i] = valeursBleu[0] + ( ( ( (255/nbColor) *i) *100) /100);
-				}
-			}
-			if (valeurs[i] <= 255) {
-				System.out.println("R : " + valeursRouge[i] + " V : " + valeursVert[i] + " B : " + valeursBleu[i] + " Gris : " + valeurs[i]);
-				boutonsColores[i] = new JButton();
-				boutonsColores[i].setBackground(new Color(valeursRouge[i], valeursVert[i], valeursBleu[i]));
-				conteneurCouleurs.add(boutonsColores[i]);
-			}
 		}
 		fenetre.getContentPane().add(conteneurCouleurs);
 		fenetre.setVisible(true);
@@ -141,7 +143,7 @@ public class testNiveauGris {
 	}
 	
 	public static void main(String args[]) {
-		testNiveauGris test = new testNiveauGris(24,12,24);
+		testNiveauGris test = new testNiveauGris(255,255,0);
 	}
 	
 }
