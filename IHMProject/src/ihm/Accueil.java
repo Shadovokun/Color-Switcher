@@ -36,6 +36,7 @@ public class Accueil {
 	ArrayList<Color> selection=new ArrayList<>();
 	ArrayList<Color> couleursAVerif=new ArrayList<>();
 	int x, y;
+	JColorChooser colorChooser, colorChooser2;
 	
 	//onglet3
 	JButton validCouleur=new JButton("✓");
@@ -215,7 +216,7 @@ public class Accueil {
 		JPanel creer=new JPanel();
 		creer.setLayout(new BorderLayout());
 		onglets.addTab("Créer", creer);
-		JColorChooser colorChooser = new JColorChooser();
+		colorChooser = new JColorChooser();
 		JPanel panel4=new JPanel();
 		panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
 		JPanel panel5=new JPanel();
@@ -249,7 +250,7 @@ public class Accueil {
 		//Onglet3
 		JPanel verifier=new JPanel();
 		onglets.addTab("Vérifier", verifier);
-		JColorChooser colorChooser2 = new JColorChooser();
+		colorChooser2 = new JColorChooser();
 		verifier.setLayout(new BorderLayout());
 		verifier.add(colorChooser2);
 		JPanel panel7=new JPanel();
@@ -408,7 +409,9 @@ public class Accueil {
 			//Generer un set et le mettre à la place de "selection" 
 			//AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a);
 			//a.fenetre.dispose();
-			System.out.println("Action du bouton non codée, nécessite l'algo :D");
+			//System.out.println("Action du bouton non codée, nécessite l'algo :D");
+			ColorSetCreator csc = new ColorSetCreator(colorChooser.getColor(), nbCouleurs);
+			AffichageCouleurs ac = new AffichageCouleurs(csc.getSelectionCouleurs(), a, 400, 200);
 		}
 	}
 	

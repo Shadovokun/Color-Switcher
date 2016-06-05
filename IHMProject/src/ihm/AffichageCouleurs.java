@@ -29,6 +29,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
 
 public class AffichageCouleurs {
 
@@ -135,6 +136,7 @@ public class AffichageCouleurs {
 		int r=couleurs.getComponent(pointeur).getBackground().getRed();
 		int g=couleurs.getComponent(pointeur).getBackground().getGreen();
 		int b=couleurs.getComponent(pointeur).getBackground().getBlue();
+		int nvGris = (int) (r * 0.3 + g * 0.59 + b * 0.11);
 		
 		float[] tsv=new float[3];
 		Color.RGBtoHSB(r, g, b, tsv);
@@ -214,9 +216,13 @@ public class AffichageCouleurs {
 		btnCopierBleu.addActionListener(new Copy(lblNbbleu));
 		panel_13.add(btnCopierBleu);
 		
+		JPanel panel_25 = new JPanel();
+		panel_1.add(panel_25);
+		panel_25.setLayout(new BoxLayout(panel_25, BoxLayout.Y_AXIS));
+		
 		JPanel panel_3 = new JPanel();
+		panel_25.add(panel_3);
 		panel_3.setBorder(new TitledBorder(null, "Hexa", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panel_1.add(panel_3);
 		panel_3.setLayout(new BoxLayout(panel_3, BoxLayout.Y_AXIS));
 		
 		Component verticalGlue = Box.createVerticalGlue();
@@ -235,6 +241,16 @@ public class AffichageCouleurs {
 		JButton btnCopierHexa = new JButton("Copier");
 		btnCopierHexa.addActionListener(new Copy(lblNbhexa));
 		panel_15.add(btnCopierHexa);
+		
+		JPanel panel_26 = new JPanel();
+		panel_26.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Niveau de gris", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_25.add(panel_26);
+		
+		Component verticalGlue_1 = Box.createVerticalGlue();
+		panel_26.add(verticalGlue_1);
+		
+		JLabel lblNvgris = new JLabel(""+nvGris);
+		panel_26.add(lblNvgris);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "TSV", TitledBorder.CENTER, TitledBorder.TOP, null, null));
