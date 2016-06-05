@@ -24,6 +24,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
@@ -274,6 +275,7 @@ public class Accueil {
 		validCouleur.addActionListener(new ValiderCouleur(colorChooser2));
 		suppCouleur.addActionListener(new SupprimerCouleur());
 		validSet.setEnabled(false);
+		validSet.addActionListener(new ActionValider3());
 		//TODO add listener pour envoyer sur la page des resultats de la verif (+ proposer un autre set?)
 		validSet.setFont(new Font("Dialog", Font.PLAIN, 16));
 		JPanel panel9=new JPanel();
@@ -412,6 +414,33 @@ public class Accueil {
 			//System.out.println("Action du bouton non codée, nécessite l'algo :D");
 			ColorSetCreator csc = new ColorSetCreator(colorChooser.getColor(), nbCouleurs);
 			AffichageCouleurs ac = new AffichageCouleurs(csc.getSelectionCouleurs(), a, 400, 200);
+		}
+	}
+	
+	class ActionValider3 implements ActionListener {
+		String message = "";
+		
+		public void actionPerformed(ActionEvent e) {
+			for (int i = 0; i < couleursAVerif.size(); i++) {
+				for (int j = 0; j < couleursAVerif.size(); j++) {
+					if (i != j && i < j) {
+						 int gris1 = (int) (couleursAVerif.get(i).getRed() * 0.3 + couleursAVerif.get(i).getGreen() * 0.59 + couleursAVerif.get(i).getBlue() * 0.11);
+						 int gris2 = (int) (couleursAVerif.get(j).getRed() * 0.3 + couleursAVerif.get(j).getGreen() * 0.59 + couleursAVerif.get(j).getBlue() * 0.11);
+						 for (int k = 0; k < nbCouleurs; k ++) {
+							 if (gris1 + k == gris2 || gris1 - k == gris2) {
+								 message += "Les couleurs " + i + " et " + j + " ont un niveau de gris trop semblable. \n";
+							 }
+						 }
+					}
+				}
+			}
+			if (message.equals("")) {
+				message += "Votre set peut être utilisé pour une impression noir et blanc !";
+			} else {
+				message += "Au moins 2 couleurs sont trop sembables en niveau de gris, vous pouvez créer un set à partir d'une des couleurs utilisées en la saisissant dans l'onglet \"Créer\".";
+			}
+			JOptionPane.showMessageDialog(null, message);
+			message = "";
 		}
 	}
 	
