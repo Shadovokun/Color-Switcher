@@ -77,7 +77,7 @@ public class AffichageCouleurs {
 		y=posY;
 		this.accueil=accueil;
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setPreferredSize(new Dimension(600,450));
+		fenetre.setPreferredSize(new Dimension(650,500));
 		fenetre.setLocation(x, y);
 		fenetre.setResizable(false);
 		fenetre.addComponentListener(new ComponentListener() {

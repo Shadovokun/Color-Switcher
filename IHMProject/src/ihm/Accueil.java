@@ -276,7 +276,6 @@ public class Accueil {
 		suppCouleur.addActionListener(new SupprimerCouleur());
 		validSet.setEnabled(false);
 		validSet.addActionListener(new ActionValider3());
-		//TODO add listener pour envoyer sur la page des resultats de la verif (+ proposer un autre set?)
 		validSet.setFont(new Font("Dialog", Font.PLAIN, 16));
 		JPanel panel9=new JPanel();
 		panel9.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -410,10 +409,10 @@ public class Accueil {
 		public void actionPerformed(ActionEvent e) {
 			//Generer un set et le mettre à la place de "selection" 
 			//AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a);
-			//a.fenetre.dispose();
 			//System.out.println("Action du bouton non codée, nécessite l'algo :D");
 			ColorSetCreator csc = new ColorSetCreator(colorChooser.getColor(), nbCouleurs);
-			AffichageCouleurs ac = new AffichageCouleurs(csc.getSelectionCouleurs(), a, 400, 200);
+			a.fenetre.dispose();
+			AffichageCouleurs ac = new AffichageCouleurs(csc.getSelectionCouleurs(), a, x, y);
 		}
 	}
 	
@@ -437,7 +436,7 @@ public class Accueil {
 			if (message.equals("")) {
 				message += "Votre set peut être utilisé pour une impression noir et blanc !";
 			} else {
-				message += "Au moins 2 couleurs sont trop sembables en niveau de gris, vous pouvez créer un set à partir d'une des couleurs utilisées en la saisissant dans l'onglet \"Créer\".";
+				message += "Vous pouvez créer un set à partir d'une des couleurs utilisées en la saisissant dans l'onglet \"Créer\".";
 			}
 			JOptionPane.showMessageDialog(null, message);
 			message = "";
