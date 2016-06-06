@@ -89,10 +89,12 @@ public class ColorSetCreator {
 		int pas;
 		if(nbCouleurs<=4) {
 			pas=50;
-		} else if(nbCouleurs<=6){
+		} else if(nbCouleurs<6){
 			pas=30;
-		} else if(nbCouleurs<=9){
-			pas=20;
+		} else if (nbCouleurs==6) {
+			pas=25;
+		}else if(nbCouleurs<=8){
+			pas=18;
 		} else {
 			pas=15;
 		}

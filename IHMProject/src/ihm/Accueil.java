@@ -31,7 +31,7 @@ import javax.swing.border.BevelBorder;
 
 public class Accueil {
 	
-	int nbCouleurs1=5;
+	int nbCouleurs1=4;
 	static int nbSets=8;
 	JFrame fenetre;
 	ArrayList<Color> selection=new ArrayList<>();
@@ -41,7 +41,7 @@ public class Accueil {
 	ColorSetCreator csc=new ColorSetCreator();
 	
 	//onglet2
-	int nbCouleurs2=5;
+	int nbCouleurs2=4;
 	
 	//onglet3
 	JButton validCouleur=new JButton("✓");
@@ -58,7 +58,7 @@ public class Accueil {
 					listeCouleurs.add(new Color(255,255,255));
 					listeCouleurs.add(new Color(153,153,255));
 					listeCouleurs.add(new Color(255,51,102));
-					listeCouleurs.add(new Color(255,153,0));
+					listeCouleurs.add(new Color(204,153,0));
 					listeCouleurs.add(new Color(255,255,102));
 					listeCouleurs.add(new Color(153,255,153));
 					listeCouleurs.add(new Color(0,153,102));
@@ -149,7 +149,7 @@ public class Accueil {
 			panel1.add(labelNbCouleurs);
 			JComboBox comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
-			comboBox.setSelectedIndex(2);
+			comboBox.setSelectedIndex(1);
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
 					nbCouleurs1=Integer.parseInt((String) comboBox.getSelectedItem());
@@ -215,7 +215,7 @@ public class Accueil {
 		panel5.add(labelNbSet);
 		JComboBox comboBox2 = new JComboBox();
 		comboBox2.setModel(new DefaultComboBoxModel(new String[] {"3", "4", "5", "6", "7", "8", "9", "10"}));
-		comboBox2.setSelectedIndex(2);
+		comboBox2.setSelectedIndex(1);
 		comboBox2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				nbCouleurs2=Integer.parseInt((String) comboBox2.getSelectedItem());
