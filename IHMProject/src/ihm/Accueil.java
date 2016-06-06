@@ -407,9 +407,6 @@ public class Accueil {
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {
-			//Generer un set et le mettre à la place de "selection" 
-			//AffichageCouleurs AffichageCouleurs=new AffichageCouleurs(selection, a);
-			//System.out.println("Action du bouton non codée, nécessite l'algo :D");
 			ColorSetCreator csc = new ColorSetCreator(colorChooser.getColor(), nbCouleurs);
 			a.fenetre.dispose();
 			new AffichageCouleurs(csc.getSelectionCouleurs(), a, x, y);
