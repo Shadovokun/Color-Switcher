@@ -28,12 +28,12 @@ public class ColorSetCreator {
 				v += 40;
 				while (b + 40 <= 255) {
 					b += 40;
-					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+					ajouterCouleurSiValide(r, v, b, nvGrisTab, nb);
 				}
 				b = BLEU;
 				while (b - 40 >= 0) {
 					b -= 40;
-					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+					ajouterCouleurSiValide(r, v, b, nvGrisTab, nb);
 				}
 			}
 			v = VERT;
@@ -41,12 +41,12 @@ public class ColorSetCreator {
 				v -= 40;
 				while (b + 40 <= 255) {
 					b += 40;
-					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+					ajouterCouleurSiValide(r, v, b, nvGrisTab, nb);
 				}
 				b = BLEU;
 				while (b - 40 >= 0) {
 					b -= 40;
-					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+					ajouterCouleurSiValide(r, v, b, nvGrisTab, nb);
 				}
 			}
 		}
@@ -57,12 +57,12 @@ public class ColorSetCreator {
 				v += 40;
 				while (b + 40 <= 255) {
 					b += 40;
-					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+					ajouterCouleurSiValide(r, v, b, nvGrisTab, nb);
 				}
 				b = BLEU;
 				while (b - 40 >= 0) {
 					b -= 40;
-					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+					ajouterCouleurSiValide(r, v, b, nvGrisTab, nb);
 				}
 			}
 			v = VERT;
@@ -70,39 +70,15 @@ public class ColorSetCreator {
 				v -= 40;
 				while (b + 40 <= 255) {
 					b += 40;
-					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+					ajouterCouleurSiValide(r, v, b, nvGrisTab, nb);
 				}
 				b = BLEU;
 				while (b - 40 >= 0) {
 					b -= 40;
-					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+					ajouterCouleurSiValide(r, v, b, nvGrisTab, nb);
 				}
 			}
-		}
-		
-		/*
-		while (v + 40 <= 255) {
-			v += 40;
-			ajouterCouleurSiValide(r, v, b, nvGrisTab);
-		}
-		v = VERT;
-		while (v - 40 >= 0) {
-			v -= 40;
-			ajouterCouleurSiValide(r, v, b, nvGrisTab);
-		}
-		
-		
-		while (b + 40 <= 255) {
-			b += 40;
-			ajouterCouleurSiValide(r, v, b, nvGrisTab);
-		}
-		b = BLEU;
-		while (b - 40 >= 0) {
-			b -= 40;
-			ajouterCouleurSiValide(r, v, b, nvGrisTab);
-		}*/
-		
-		
+		}		
 		
 		
 		/*nbColor = nb;
@@ -162,18 +138,31 @@ public class ColorSetCreator {
 		}*/
 	}
 	
-	public boolean nvGrisValide(Color c, ArrayList<Integer> nvGrisTab){
+	public boolean nvGrisValide(Color c, ArrayList<Integer> nvGrisTab, int nbCouleurs){
+		if(nvGrisTab.size()>=nbCouleurs){
+			return false;
+		}
 		int nvGris=(int)(c.getRed()*0.3+c.getGreen()*0.59+c.getBlue()*0.11);
+		int pas;
+		if(nbCouleurs<=4) {
+			pas=50;
+		} else if(nbCouleurs<=6){
+			pas=30;
+		} else if(nbCouleurs<=9){
+			pas=20;
+		} else {
+			pas=15;
+		}
 		for(int i=0; i<nvGrisTab.size(); i++) {
-			if(nvGris<=nvGrisTab.get(i)+20 && nvGris>=nvGrisTab.get(i)-20){
+			if(nvGris<=nvGrisTab.get(i)+pas && nvGris>=nvGrisTab.get(i)-pas){
 				return false;
 			}
 		}
 		return true;
 	}
 	
-	public void ajouterCouleurSiValide(int r, int v, int b, ArrayList<Integer> nvGrisTab){
-		if(nvGrisValide(new Color(r,v,b), nvGrisTab)){
+	public void ajouterCouleurSiValide(int r, int v, int b, ArrayList<Integer> nvGrisTab, int nbCouleurs){
+		if(nvGrisValide(new Color(r,v,b), nvGrisTab, nbCouleurs)){
 			nvGrisTab.add((int)(r*0.3+v*0.59+b*0.11));
 			setCouleurs.add(new Color(r,v,b));
 		}
