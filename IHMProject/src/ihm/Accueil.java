@@ -31,13 +31,17 @@ import javax.swing.border.BevelBorder;
 
 public class Accueil {
 	
-	int nbCouleurs=5;
+	int nbCouleurs1=5;
 	static int nbSets=8;
 	JFrame fenetre;
 	ArrayList<Color> selection=new ArrayList<>();
 	ArrayList<Color> couleursAVerif=new ArrayList<>();
 	int x, y;
 	JColorChooser colorChooser, colorChooser2;
+	ColorSetCreator csc=new ColorSetCreator();
+	
+	//onglet2
+	int nbCouleurs2=5;
 	
 	//onglet3
 	JButton validCouleur=new JButton("✓");
@@ -50,33 +54,15 @@ public class Accueil {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ArrayList<ArrayList<Color>> listeCouleurs=new ArrayList<>();
-					ArrayList <Color> couleurs =new ArrayList<>();
-					couleurs.add(Color.BLACK);
-					couleurs.add(Color.BLUE);
-					couleurs.add(Color.RED);
-					couleurs.add(Color.GREEN);
-					couleurs.add(Color.YELLOW);
-					couleurs.add(Color.ORANGE);
-					couleurs.add(Color.PINK);
-					couleurs.add(Color.CYAN);
-					couleurs.add(Color.MAGENTA);
-					couleurs.add(Color.RED);
-					ArrayList <Color> couleurs2 =new ArrayList<>();
-					couleurs2.add(Color.PINK);
-					couleurs2.add(Color.YELLOW);
-					couleurs2.add(Color.CYAN);
-					couleurs2.add(Color.RED);
-					couleurs2.add(Color.BLUE);
-					couleurs2.add(Color.ORANGE);
-					couleurs2.add(Color.BLACK);
-					couleurs2.add(Color.MAGENTA);
-					couleurs2.add(Color.RED);
-					couleurs2.add(Color.GREEN);
-					listeCouleurs.add(couleurs2);
-					for(int a=1; a<nbSets; a++) {
-						listeCouleurs.add(couleurs);
-					}
+					ArrayList<Color> listeCouleurs=new ArrayList<>();
+					listeCouleurs.add(new Color(255,255,255));
+					listeCouleurs.add(new Color(153,153,255));
+					listeCouleurs.add(new Color(255,51,102));
+					listeCouleurs.add(new Color(255,153,0));
+					listeCouleurs.add(new Color(255,255,102));
+					listeCouleurs.add(new Color(153,255,153));
+					listeCouleurs.add(new Color(0,153,102));
+					listeCouleurs.add(new Color(102,0,102));
 					new Accueil(listeCouleurs);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,7 +71,7 @@ public class Accueil {
 		});
 	}
 
-	public Accueil(ArrayList<ArrayList<Color>> listeCouleurs) {
+	public Accueil(ArrayList<Color> listeCouleurs) {
 		//Création de la fenetre
 		fenetre= new JFrame("COLOR SWITCHER");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,19 +113,20 @@ public class Accueil {
 				JPanel set=new JPanel();
 				set.setLayout(new BoxLayout(set, BoxLayout.Y_AXIS));
 				int c=0;
-				for(int j=0; j<10/2-nbCouleurs/2+nbCouleurs; j++) {
-					if(j<10/2-nbCouleurs/2) {
+				ArrayList<Color> setGenere=csc.genererSet(listeCouleurs.get(i), nbCouleurs1);
+				for(int j=0; j<10/2-nbCouleurs1/2+nbCouleurs1; j++) {
+					if(j<10/2-nbCouleurs1/2) {
 						p.add(new JPanel());
 					} else {
 						couleur=new JPanel();
-						couleur.setBackground(listeCouleurs.get(i).get(c));
+						couleur.setBackground(setGenere.get(c));
 						set.add(couleur);
 						c++;
 					}
 				}
 				p.add(set);
 				setsJPanel[i]=set;
-				for (int j=10/2-nbCouleurs/2+nbCouleurs; j<10 ; j++){
+				for (int j=10/2-nbCouleurs1/2+nbCouleurs1; j<10 ; j++){
 					p.add(new JPanel());
 				}
 				panel3.add(p);
@@ -165,7 +152,7 @@ public class Accueil {
 			comboBox.setSelectedIndex(2);
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
-					nbCouleurs=Integer.parseInt((String) comboBox.getSelectedItem());
+					nbCouleurs1=Integer.parseInt((String) comboBox.getSelectedItem());
 					panel3.removeAll();
 					btnValider1.setEnabled(false);
 					selection.clear();
@@ -179,19 +166,20 @@ public class Accueil {
 						JPanel set=new JPanel();
 						set.setLayout(new BoxLayout(set, BoxLayout.Y_AXIS));
 						int c=0;
-						for(int j=0; j<10/2-nbCouleurs/2+nbCouleurs; j++) {
-							if(j<10/2-nbCouleurs/2) {
+						ArrayList<Color> setGenere=csc.genererSet(listeCouleurs.get(i), nbCouleurs1);
+						for(int j=0; j<10/2-nbCouleurs1/2+nbCouleurs1; j++) {
+							if(j<10/2-nbCouleurs1/2) {
 								p.add(new JPanel());
 							} else {
 								couleur=new JPanel();
-								couleur.setBackground(listeCouleurs.get(i).get(c));
+								couleur.setBackground(setGenere.get(c));
 								set.add(couleur);
 								c++;
 							}
 						}
 						p.add(set);
 						setsJPanel[i]=set;
-						for (int j=10/2-nbCouleurs/2+nbCouleurs; j<10 ; j++){
+						for (int j=10/2-nbCouleurs1/2+nbCouleurs1; j<10 ; j++){
 							p.add(new JPanel());
 						}
 						panel3.add(p);
@@ -230,7 +218,7 @@ public class Accueil {
 		comboBox2.setSelectedIndex(2);
 		comboBox2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				nbCouleurs=Integer.parseInt((String) comboBox2.getSelectedItem());
+				nbCouleurs2=Integer.parseInt((String) comboBox2.getSelectedItem());
 			}
 		});
 		panel5.add(comboBox2);
@@ -407,9 +395,8 @@ public class Accueil {
 			this.a=a;
 		}
 		public void actionPerformed(ActionEvent e) {
-			ColorSetCreator csc = new ColorSetCreator(colorChooser.getColor(), nbCouleurs);
 			a.fenetre.dispose();
-			new AffichageCouleurs(csc.getSelectionCouleurs(), a, x, y);
+			new AffichageCouleurs(csc.genererSet(colorChooser.getColor(), nbCouleurs2), a, x, y);
 		}
 	}
 	
