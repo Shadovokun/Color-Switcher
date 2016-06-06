@@ -41,33 +41,6 @@ public class AffichageCouleurs {
 	Clipboard clipbd =	fenetre.getToolkit().getSystemClipboard();
 	int pointeur=0; //couleur affichée: la première du set
 	int x, y;
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ArrayList <Color> couleurs =new ArrayList<>();
-					couleurs.add(Color.PINK);
-					couleurs.add(Color.BLACK);
-					couleurs.add(Color.BLUE);
-					couleurs.add(Color.RED);
-					couleurs.add(Color.GREEN);
-					couleurs.add(Color.YELLOW);
-					couleurs.add(Color.ORANGE);
-					couleurs.add(Color.CYAN);
-					couleurs.add(Color.MAGENTA);
-					couleurs.add(Color.RED);
-					AffichageCouleurs frame = new AffichageCouleurs(couleurs, null, 400, 200);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

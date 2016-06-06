@@ -4,12 +4,59 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class ColorSetCreator {
-	private int nbColor;
-	private int[] valeurs = new int[10], valeursRouge = new int[10], valeursVert = new int[10], valeursBleu = new int[10];
-	private ArrayList<Color> selectionCouleurs=new ArrayList<>();
+	//private int nbColor;
+	//private int[] valeurs = new int[10], valeursRouge = new int[10], valeursVert = new int[10], valeursBleu = new int[10];
+	private ArrayList<Color> setCouleurs=new ArrayList<>();
 	
 	ColorSetCreator(Color color, int nb) {
-		nbColor = nb;
+		final int ROUGE=color.getRed();
+		final int VERT=color.getGreen();
+		final int BLEU=color.getBlue();
+		
+		ArrayList<Integer> nvGrisTab=new ArrayList<>();
+		nvGrisTab.add((int)(ROUGE*0.3+VERT*0.59+BLEU*0.11));
+		setCouleurs.add(color);
+		
+		int r=ROUGE;
+		int v=VERT;
+		int b=BLEU;
+		
+		if (r>=v && r>=b){
+			while(r+40<=255) {
+				r+=40;
+				ajouterCouleurSiValide(r,v,b,nvGrisTab);
+			}
+			r=ROUGE;
+			while(r-40>=0) {
+				r-=40;
+				ajouterCouleurSiValide(r,v,b,nvGrisTab);
+			}
+		} else if (v>=b && v>=r){
+			while(v+40<=255) {
+				v+=40;
+				ajouterCouleurSiValide(r,v,b,nvGrisTab);
+			}
+			v=VERT;
+			while(v-40>=0) {
+				v-=40;
+				ajouterCouleurSiValide(r,v,b,nvGrisTab);
+			}
+		} else if (b>=r && b>=v){
+			while(b+40<=255) {
+				b+=40;
+				ajouterCouleurSiValide(r,v,b,nvGrisTab);
+			}
+			b=BLEU;
+			while(b-40>=0) {
+				b-=40;
+				ajouterCouleurSiValide(r,v,b,nvGrisTab);
+			}
+		}
+		
+		
+		
+		
+		/*nbColor = nb;
 		valeursRouge[0] = color.getRed();
 		valeursVert[0] = color.getGreen();
 		valeursBleu[0] = color.getBlue();
@@ -63,11 +110,27 @@ public class ColorSetCreator {
 			if (i < nbColor) {
 				selectionCouleurs.add(new Color(valeursRouge[i], valeursVert[i], valeursBleu[i]));
 			}
+		}*/
+	}
+	
+	public boolean nvGrisValide(Color c, ArrayList<Integer> nvGrisTab){
+		int nvGris=(int)(c.getRed()*0.3+c.getGreen()*0.59+c.getBlue()*0.11);
+		for(int i=0; i<nvGrisTab.size(); i++) {
+			if(nvGris<=nvGrisTab.get(i)+20 && nvGris>=nvGrisTab.get(i)-20){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void ajouterCouleurSiValide(int r, int v, int b, ArrayList<Integer> nvGrisTab){
+		if(nvGrisValide(new Color(r,v,b), nvGrisTab)){
+			nvGrisTab.add((int)(r*0.3+v*0.59+b*0.11));
+			setCouleurs.add(new Color(r,v,b));
 		}
 	}
 	
 	public ArrayList<Color> getSelectionCouleurs() {
-		return selectionCouleurs;
-		
+		return setCouleurs;
 	}
 }
