@@ -21,37 +21,86 @@ public class ColorSetCreator {
 		int v=VERT;
 		int b=BLEU;
 		
-		if (r>=v && r>=b){
-			while(r+40<=255) {
-				r+=40;
-				ajouterCouleurSiValide(r,v,b,nvGrisTab);
+		//r,v,b
+		while (r + 40 <= 255) {
+			r += 40;
+			while (v + 40 <= 255) {
+				v += 40;
+				while (b + 40 <= 255) {
+					b += 40;
+					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+				}
+				b = BLEU;
+				while (b - 40 >= 0) {
+					b -= 40;
+					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+				}
 			}
-			r=ROUGE;
-			while(r-40>=0) {
-				r-=40;
-				ajouterCouleurSiValide(r,v,b,nvGrisTab);
-			}
-		} else if (v>=b && v>=r){
-			while(v+40<=255) {
-				v+=40;
-				ajouterCouleurSiValide(r,v,b,nvGrisTab);
-			}
-			v=VERT;
-			while(v-40>=0) {
-				v-=40;
-				ajouterCouleurSiValide(r,v,b,nvGrisTab);
-			}
-		} else if (b>=r && b>=v){
-			while(b+40<=255) {
-				b+=40;
-				ajouterCouleurSiValide(r,v,b,nvGrisTab);
-			}
-			b=BLEU;
-			while(b-40>=0) {
-				b-=40;
-				ajouterCouleurSiValide(r,v,b,nvGrisTab);
+			v = VERT;
+			while (v - 40 >= 0) {
+				v -= 40;
+				while (b + 40 <= 255) {
+					b += 40;
+					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+				}
+				b = BLEU;
+				while (b - 40 >= 0) {
+					b -= 40;
+					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+				}
 			}
 		}
+		r = ROUGE;
+		while (r - 40 >= 0) {
+			r -= 40;
+			while (v + 40 <= 255) {
+				v += 40;
+				while (b + 40 <= 255) {
+					b += 40;
+					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+				}
+				b = BLEU;
+				while (b - 40 >= 0) {
+					b -= 40;
+					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+				}
+			}
+			v = VERT;
+			while (v - 40 >= 0) {
+				v -= 40;
+				while (b + 40 <= 255) {
+					b += 40;
+					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+				}
+				b = BLEU;
+				while (b - 40 >= 0) {
+					b -= 40;
+					ajouterCouleurSiValide(r, v, b, nvGrisTab);
+				}
+			}
+		}
+		
+		/*
+		while (v + 40 <= 255) {
+			v += 40;
+			ajouterCouleurSiValide(r, v, b, nvGrisTab);
+		}
+		v = VERT;
+		while (v - 40 >= 0) {
+			v -= 40;
+			ajouterCouleurSiValide(r, v, b, nvGrisTab);
+		}
+		
+		
+		while (b + 40 <= 255) {
+			b += 40;
+			ajouterCouleurSiValide(r, v, b, nvGrisTab);
+		}
+		b = BLEU;
+		while (b - 40 >= 0) {
+			b -= 40;
+			ajouterCouleurSiValide(r, v, b, nvGrisTab);
+		}*/
 		
 		
 		
