@@ -28,6 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 public class Accueil {
 	
@@ -206,6 +207,9 @@ public class Accueil {
 		creer.setLayout(new BorderLayout());
 		onglets.addTab("Créer", creer);
 		colorChooser = new JColorChooser();
+		AbstractColorChooserPanel[] ongletsCouleurs = colorChooser.getChooserPanels();
+		colorChooser.removeChooserPanel(ongletsCouleurs[2]);
+		colorChooser.removeChooserPanel(ongletsCouleurs[4]);
 		JPanel panel4=new JPanel();
 		panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
 		JPanel panel5=new JPanel();
@@ -240,6 +244,9 @@ public class Accueil {
 		JPanel verifier=new JPanel();
 		onglets.addTab("Vérifier", verifier);
 		colorChooser2 = new JColorChooser();
+		AbstractColorChooserPanel[] ongletsCouleurs2 = colorChooser2.getChooserPanels();
+		colorChooser2.removeChooserPanel(ongletsCouleurs2[2]);
+		colorChooser2.removeChooserPanel(ongletsCouleurs2[4]);
 		verifier.setLayout(new BorderLayout());
 		verifier.add(colorChooser2);
 		JPanel panel7=new JPanel();
